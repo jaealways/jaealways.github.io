@@ -45,6 +45,9 @@ defaults:
 # Syntax
 markdown: kramdown
 highlighter: rouge
+lsi: false
+excerpt_separator: "\n\n"
+incremental: false
 
 # Paginate
 paginate: 10
