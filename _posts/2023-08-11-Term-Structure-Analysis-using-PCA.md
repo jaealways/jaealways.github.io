@@ -110,7 +110,7 @@ $x_{i,j}=\mu_j+\sum_{l=1}^kz_{i,l}f_{l,j}+e{i,j}$로 나타낼 수 있음
     - 주요 거시경제 요인을 면밀히 관찰할 수 없음
     - 거시경제 요인 간 상관관계가 높을 경우 fitting이 불안정함 
     </br></br>
-- 때문에 외부 요인 보단, slope나 curvature 같이 커브 자체에서 발견되는 요인에 집중하고자 함
+- 때문에 외부 요인 보단, slope나 curvature 같이 커브 자체에서 발견되는 요인에 집중하고자 함</br></br>
 
 ## 3.3 Data and observation
 
@@ -121,6 +121,80 @@ $x_{i,j}=\mu_j+\sum_{l=1}^kz_{i,l}f_{l,j}+e{i,j}$로 나타낼 수 있음
 </br></br>
 
 - Figure 3.2를 통해 서로 다른 날짜의 수익률 곡선 기간구조를 볼 수 있는데, Figure 3.1과 다르게 곡선이 다르거나 무관하게 움직이는 것 발견, 이를 세 개의 타입으로 생각해보면
-    - Level Change: 
-    - Slope Change: 
-    - Curvature Change: 
+    - Level Change: 모든 만기의 이자율을 평행이동시킴, Figure 3.2의 '2018-02-05'와 '2018-05-17' 비교
+    - Slope Change: slope factor의 충격은 단기금리를 장기금리 보다 훨씬 많이 상승시켜, slope가 감소하는 효과, '2018-05-17'와 '2018-12-10' 비교
+    - Curvature Change: Curvature의 변화는 중장기 프리미엄과 중단기 프리미엄을 일별로 바꿈</br></br>
+
+## 3.4 PCA on term structure
+
+- 수익률 곡선의 움직임이 몇 가지 공통된 요인에 의해 결정된다는 것을 발견했는데, PCA를 통해 이를 알아볼 수 있음
+- X를 N일 평균 일일 수익률 변화라 할 때, $X=ZV^T$
+</br></br>
+
+### 3.4.1 Principal components (Z)
+</br>
+
+![Alt text](image-2.png)
+
+</br>
+- Figure 3.3은 상위 세 개의 주성분을 보여주는데, PC1은 변화량이 크지만, PC3는 0을 중심으로 조금 변화
+
+![Alt text](image-3.png)
+
+- Figure 3.4에 따르면 95% 정도가, 첫번째 주성분에 의해 설명됨
+</br></br>
+### 3.4.2 Loading matrix (V)
+
+- V는 새 좌표에서 X를 나타내는 loading 행렬로, Figure 3.5처럼 나타남
+- 로딩행렬을 통해 가장 큰 영향을 미치는 주성분을 결정할 수 있는데, 절대값이 클 수록 크게 영향
+
+![Alt text](image-4.png)
+</br>
+
+
+![Alt text](image-5.png)
+</br></br>
+- PC1은 모든 load가 양수로, PC1 팩터는 수익률 곡선을 같은 방향으로 움직이기 때문에 level change와 관련 있음. 또 대부분의 분산이 PC1에 의해 설명됨
+- PC2의 loading은 단기에 음수, 장기로 갈수록 양수로 커지는데, 이를 change in slope라 이해할 수 있음
+- PC3의 loading은 0을 중심으로 이동하는데,short, long일 때는 수익률 곡선과 유사하게, belly(중간기간)은 반대로 움직이는 경향. curvature라 이해할 수 있음
+</br></br>
+![Alt text](image-6.png)
+- 실제 Figure 3.6을 통해 살펴보면, DGS10과 PC1이 거의 일치하고, PC2는 단기채권을 더 크게 반영하기 때문에 장단기차이(10Y-2Y)라 생각할 수 있음.
+- PC3는 curvature로 장단기와 중기가 다른 방향(30Y-2x10Y=5Y)으로 움직일 때를 묘사. 세 번째 plot을 보면 유사한 경향을 보임
+</br></br>
+
+### 3.4.3 Representation of X with PCs
+
+![Alt text](image-9.png)
+- PCA를 통해 세 개의 주성분으로 원래 데이터를 근사할 수 있음(거의 100%의 설명력) Figure 3.7은 잔차를 보여주는데, 10년 만기의 경우 PC1과 PC2만으로도 움직임에 대한 설명이 충분한 것을 볼 수 있음</br></br>
+![Alt text](image-7.png)
+- 30년 만기의 경우, PC1보다 PC2가 포함된 값이 트렌드를 더 잘 설명하고, PC3를 포함하는 것이 좀 더 필수적임
+</br></br>
+![Alt text](image-8.png)
+</br></br>
+
+## 3.5 Term structure analysis during COVID-19 crisis
+
+
+
+### 3.5.1 Why this timeline?
+
+
+### 3.5.2 Data and Results
+
+
+# 4. PCA for hedging
+
+
+## 4.1 Hedging
+
+
+## 4.2 Risk representation
+
+
+## 4.3 Hedge level and slope with PCA
+
+
+# 5. Conclusion
+
+
