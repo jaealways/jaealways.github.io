@@ -8,6 +8,10 @@
 
     {% seo %}
 
+    {% if page.use_math %}
+      {% include mathjax_support.html %}
+    {% endif %}
+
     <link rel="shortcut icon" type="image/x-icon" href="{{site.baseurl}}/{{site.favicon}}">
 
     <!-- Font Awesome Icons -->
