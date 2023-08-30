@@ -67,3 +67,16 @@ $$c_n(k)=-\frac{2ln(L_n(k))}{n}+\frac{kln(n)}{n}$$
 
 ## 3.3. Singular value decomposition entropy
 
+- 각각의 correlation 행렬마다 SVD를 진행했는데, 벡터가 엔트로피 측정치로 변환됨
+- 일별 엔트로피와 달별 엔트로피가 각각 Fig1과 Fig2를 나타내는데, 엔트로피의 변화가 시장 자체의 무질서를 나타냄
+
+
+![Fig1](Image\2023-08-27-The predictive-power-of-singular-value-decomposition-entropy-for-stock-market-dynamics\image.png)
+
+- 다우존스 지수가 엔트로피 지수 보다 더 변동성이 큰데, 시스템 인덱스가 덜 요동친다고 생각할 수 있음
+
+## 3.4. Granger causality for entropy
+
+- 위의 그림들은 주식시장의 상태를 나타낸다고 생각할 수 있는데, 좀 더 확실히 하기 위해 실제 시장 역학의 예측력을 갖고 있는지 검증하고자 함
+- 엔트로피 지수와 다우존스 지수(월별 일별)의 Granger causality 검정을 통해 
+
