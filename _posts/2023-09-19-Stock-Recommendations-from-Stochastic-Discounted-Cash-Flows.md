@@ -67,6 +67,52 @@ $$V_0=\tilde{V_0}-(TD-C_sI+MI+PS)$$
 
 $${CF}_t:={NOPAT}_i+D\&A_t-{CAPEX}_t-\Delta WC_t$$
 
+- 이 때, t 시점의 NOPAT는 아래의 관계식으로 가정. 즉, NOPAT는 세전이익, 세금, 감가상각 EBITDA로부터 구할 수 있음 ($\tau_0$는 한계세율)
+
+$${NOPAT}_t=(EBITDA-D\&A)(1-\tau_0)$$
+
+- 이 때 아래 두 가정이 필요함
+    - 자본비용 k를 동일하다고 가정하며, 이를 통해 미래 현금흐름 할인. 자본비용은 자산비용, 세후 부채, 우선주비용의 가중평균으로 계산
+    - $T>0$, 영구성장률 g를 $0<g<k$로 가정
+- 때문에 미래 실현 현금흐름은 아래의 식으로 나타남
+$$ \tilde{V_0}(\omega)=\sum_{t=1}^T\frac{CF_t(\omega)}{(1+k)^t}+\frac{CF_T(\omega)(1+g)}{(1+k)^T(k-g)} $$
+
+- 위의 모델은 현금흐름을 신뢰성 있게 추정하는게 중요하기 떄문에, 
+4pg?
+
+</br></br>
+# 3. Data and Sample Selection Criteria
+
+- SDCF 모델은 일반적인 고려사항에 외존하지만, 세부사항을 구현하고 검증하기 위해선 특정 회사의 데이터를 활용해야 함
+- 본 섹션에선 방법론의 개발 및 테스트를 위한 분기별 데이터 소스를 살펴보고자 함
+
+- Thomson Reuters Eikon Datastream 데이터베이스에서 필요한 데이터를 수집했는데, 2009년 1월부터 2017년 12월까지 S&P 500에 포함된 모든 비금융 기업으로 구성됨
+</br></br>
+
+![Alt text](Image\2023-09-19-Stock-Recommendations-from-Stochastic-Discounted-Cash-Flows\image.png)
+</br></br>
+
+- $k$: 회사의 자본 조달 비용 추정치
+- $\tau_0$: 회사들의 한계세율
+- discount rate for the cash flow terminal value: 
+</br></br>
+
+# 4. Recommendations from Fair Vaule Distributions
+
+- 2절에서 정의한 공정가치 분포를 통해 mispricing 기업을 식별하는데, 적정가로 회귀할 것이라는 가설하에 매수매도 진행
+- 강매수(SB), 매수(B), 보유(H), 매도(S), 매도(SS)로 분류
+
+## 4.1 Single-Stock Quantile Recommendations System
+
+- $FV_t^i$를 특정 회사의 i 시점 공정가치 분포함수라 하고, $P_t^i$를 시장가라 가정
+- $q_t^i=FV_{th}^i(P_{th}^i)$ 값을 0.125, 0.25, 0.75, 1을 기준으로 다섯 단계(SB, B, H, S, SS)로 구분
+
+- 이런 분류법을 Single-Stock Quantile(SSQ)라 하는데, 기업 공정가치 분포를 최대한 활용할 수 있지만, SB나 SS 같은 극단값 라벨을 비어있을 수도.
+
+## 4.2 Cross-Sectional Quantile Recommendations System
+
+- 모든 기업의 공정가치 분포를 사용해서, mispricing을 계산할 수 있음
 - 
+
 
 
