@@ -57,21 +57,61 @@ Indirect: Income Statement의 마지막 항목인 Net Income으로 시작해서 
 # 2. The Direct Cash Flow Template 
 
 - 회계학의 깊은 내용을 다루는 것 같아 패스하겠습니다.
+</br></br>
 
 # 3. Data and Methodology
 
-- 
+- S&P 1500(시총 상위 500 종목, 중형주 400 종목, 소형주 1500 종목)의 펀더멘탈, 가격 데이터를 획득
+- 생존 편향을 피하기 위해 리스트를 매달 갱신
+- 대부분의 회계 지표 관련 연구처럼 레버리지 같은 구조적 차이에 의해 금융회사(은행, 보험, 리츠 등)를 제거함(?). 전체의 약 15% 정도
+- 94년 10월 ~13년 12월까지의 데이터 사용
+- 업계 관행에 따라 기본적 변수에 대해 TTM(직전 12개월 실적으로 순이익 산정) 사용
+    - (ex: TTM P/E가 100이면, 직전 네 개 분기 순이익 대비 주가가 100배)
+- Table1을 기본으로, 직접 간접 현금흐름 지표를 만듦
+    - CFAFAT: (C)-Capex
+    - CFAF: (B)-Capex
+    - CFO: (A)-Capex
+- 위의 직접현금흐름(DMCF) 지표를 간접현금흐름(CFIM, OANCF-Capex) 지표와 비교
+- 그 외에 굉장히 많은 지표들이 존재
+</br></br>
+
 
 # 4. Information in Cash Flow Components
 
+- 다양한 현금흐름 구성요소가 주식 수익률에 대한 정보를 추가로 제공하는지 분석
+
+![Alt text](Image\2023-09-20-Are-Cash-Flows-Better-Stock-Return-Predictors-Than-Profits\Table2.png)
+
+- 우선 회사 간 동일 가중치의 다양한 현금흐름 측정치의 correlation을 측정
+- 이 때 지표는 아래와 같음
+    - CFODM: 영업활동으로 현금흐름을 측정하는 직접 방법
+    - CFOIM: 영업활동으로 현금흐름을 측정하는 간접 방법
+    - CFONM: Novy-Marx's의 free 현금흐름 지표(순수익+감가상각/상각-운영자본변화-자본지출)
+    - FinAct: financing activities
+    - TaxAct: 세금
+    - OthAct: 다른 활동
+    - Capex: 자본지출
+- 위 지표들을 total assets(TA)이나 market value of equity(MVE)로 나눠줌
+- CFODM/TA,CFOIM/TA 간 상관관계는 0.81인데, CFODM/TA, CFONM/TA를 측정하면 0.45까지 감소
+- 때문에 현금흐름 구성요소들에 대해 보다 엄격한 분석을 할 필요
+</br></br>
+- 추가적으로, Fama and MacBeth cross-section regression을 진행했는데, 결과는 아래와 같음
 
 
-# 5. Cash Flow, Profitability Return and Yield Measures, and OneMonth-Ahead Returns 
 
+![Alt text](Image\2023-09-20-Are-Cash-Flows-Better-Stock-Return-Predictors-Than-Profits\Table3.png)
 
+- 
+
+# 5. Cash Flow, Profitability Return and Yield Measures, and One Month-Ahead Returns 
+
+![Alt text](Image\2023-09-20-Are-Cash-Flows-Better-Stock-Return-Predictors-Than-Profits\Table4.png)
+
+- 
 
 ## 5.1 Portfolio-Sorted Regressions
 
+- 
 
 # 6. Robustness Checks 
 
@@ -80,3 +120,7 @@ Indirect: Income Statement의 마지막 항목인 Net Income으로 시작해서 
 ## 6.2 Sector Analysis
 
 # 7. Conclusion
+
+- 일반적인 손익계산서 지표가 의미가 있지만, 현금기반 측정치가 보다 우수함을 밝힘
+- 보다 자유로운 현금흐름을 추정하기 위해 직접법을 사용
+- 다양한 보유기간과 부문을 통제하는 강건성 측정 후에도 유사한 결과
