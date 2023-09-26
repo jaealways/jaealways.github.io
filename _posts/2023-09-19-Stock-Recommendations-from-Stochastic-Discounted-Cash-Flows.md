@@ -38,7 +38,7 @@ Giulio Bottazzi et al 분의 "Stock Recommendations from Stochastic Discounted C
 
 - 본 논문은 아래와 같은 순서로 전개
     - Section 2: SDCF에 대한 설명
-    - Section 3: 분석에 사용된 데이터베이스아 벼수에 대해 설명
+    - Section 3: 분석에 사용된 데이터베이스아 변수에 대해 설명
     - Section 4: 두 주식 추천 시스템 소개
     - Section 5: 추천 시스템 성능 분석
     - Section 6: 결론
@@ -78,7 +78,6 @@ $${NOPAT}_t=(EBITDA-D\&A)(1-\tau_0)$$
 $$ \tilde{V_0}(\omega)=\sum_{t=1}^T\frac{CF_t(\omega)}{(1+k)^t}+\frac{CF_T(\omega)(1+g)}{(1+k)^T(k-g)} $$
 
 - 위의 모델은 현금흐름을 신뢰성 있게 추정하는게 중요하기 떄문에, 
-4pg?
 
 </br></br>
 # 3. Data and Sample Selection Criteria
@@ -112,7 +111,13 @@ $$ \tilde{V_0}(\omega)=\sum_{t=1}^T\frac{CF_t(\omega)}{(1+k)^t}+\frac{CF_T(\omeg
 ## 4.2 Cross-Sectional Quantile Recommendations System
 
 - 모든 기업의 공정가치 분포를 사용해서, mispricing을 계산할 수 있음
-- 
+- $\mu_t^i$와 $\sigma_t^i$는 t 시점 주식 i의 공정가치 로그분포 평균과 분산
+- t 시점 기업 i의 mispricing 지표는 $z_t^i$ 로그 공정가치 기대값에 로그 가격 차이를 로그 공정가치 분포의 표준편차로 나눔
+- mispricing 지표에 따라 alpha 퀀타일로 나타내고, 각각 다른 신호, 이런 시스템을 Section Squartial Quantile(CSQ)라고 함
+- CSQ는 전반적인 시장변화는 신호에 영향을 미치지 않는다는 장점이 있음
+</br></br>
+- SSQ와 CSQ의 성능을 테스트하기 위해, 최초에 모든 회사에 동일한 가중치를 부여한 후, 매일 시그널을 갱신해서 일일 수익률을 계산
+</br></br>
 
-
+# 5. Performance Evaluation
 
