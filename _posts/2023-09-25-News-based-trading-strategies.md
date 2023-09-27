@@ -52,7 +52,7 @@ Stefan Feuerriegel et al 분의 "News-based trading strategies"(2018) 논문을 
 
 # 4. Trading strategies
 
-![Alt text](Image\2023-09-25-News-based-trading-strategies\Fig1.png)
+![Alt text](Image/2023-09-25-News-based-trading-strategies/Fig1.png)
 
 - Figure1은 뉴스 거래 기반 의사결정 시스템을 그림으로 표현한 것. 크게 다음 과정을 포함하고 있음
     - 텍스트를 통해 뉴스 감성을 추출함
