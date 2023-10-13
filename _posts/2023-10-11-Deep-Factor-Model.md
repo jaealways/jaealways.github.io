@@ -80,7 +80,7 @@ $$ f(x)=\sum_{d\in V(L)} R_d^{(L)}=...=\sum_{d\in V(l)} R_d^{(l)}=...=\sum_{d\in
 
 - 또 한 뉴런에서 다른 뉴런으로 들어올 때와 나갈 때 같은 relevance score가 보존되는데, 아래 식처럼 계산할 수 있음
 
-$$ R_i^{l}=\sum_j=\frac{z_{ij}^{(l,l+1)}}{\sum_k z_{kj}^{(l,l+1)}}R_j^{(l+1)}, z_{ij}^{(l,l+1)}=w_{ij}z_i^{(l)} $$
+$$ R_i^{l}=\sum_j \frac{z_{ij}^{(l,l+1)}}{\sum_k z_{kj}^{(l,l+1)}}R_j^{(l+1)}, z_{ij}^{(l,l+1)}=w_{ij}z_i^{(l)} $$
 
 
 ## 3.3 Deep Factor Model
