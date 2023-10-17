@@ -151,7 +151,7 @@ $$ r_i=\tilde{f}(X_{i1},...,X_{iN},\bar{F_1},...,\bar{F_N})+\epsilon_i \\
 
 - 아래 Figure3은 LRP를 사용해 예측에 기여한 팩터를 백분율로 나타냄.
 
-![Alt text](./Image/2023-10-11-Deep-Factor-Model/Figure3.png)
+![Alt text](Image/2023-10-11-Deep-Factor-Model/Figure3.png)
 
 
 - **<u>수익률과 분위수 포트폴리오 양쪽에서 quality, value factor가 절반 이상을 차지함</u>**
