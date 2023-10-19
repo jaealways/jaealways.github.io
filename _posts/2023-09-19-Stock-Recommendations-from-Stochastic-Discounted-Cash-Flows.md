@@ -20,19 +20,19 @@ Giulio Bottazzi et al 분의 "Stock Recommendations from Stochastic Discounted C
     - single-stock quantile recommedation system: 시장가와 공정가치를 통해 추정된 분포를 비교해서 mispricing 측정
     - cross-sectional quantile system: 모든 회사의 공정가치 분포를 통해 mispricing 측정
 - 통계검정을 통해 해당 방법론이 지속적인 초과수익을 보임을 밝힘
-</br></br>
+<br><br>
 # 1. Introduction
 
 - 노이즈와 불확실성으로 인해 현금흐름 분석을 정확하게 예측하는 것은 어려움
 - 떄문에 증권 분석을 통해 정확한 고유가치를 추정하기 보다, 매수 매도를 정당화하기 위해 과소과대평가를 진행
 - 본 논문에서는 stochastic discounted cash flow(이하 SDCF) 분석을 통해 실제 수익을 거둘 수 있는지 살펴보고자 함
-- SDCF는 미래 현금흐름의 불확실성을 고려해서, 공정가치분포와 시장가격을 비교. 이를 통해 mispricing을 탐지.</br></br>
+- SDCF는 미래 현금흐름의 불확실성을 고려해서, 공정가치분포와 시장가격을 비교. 이를 통해 mispricing을 탐지.<br><br>
 
 
 - single stock quantile system에선 해당 기업의 공정가치분포를 통해 기업의 mispricing 정도와 방향 지정
 - cross-sectional quantile system에선 모든 기업의 공정가치분포를 통해 mispricing을 비교적으로 도출
     - mispricing 지표를 시장가와 공정가치 기대값의 차이를 표준편차로 표준화해서 구함
-</br></br>
+<br><br>
 - 두 시스템의 성능분석은 Fama-French 3요소 모델에 모멘텀 팩터를 더해 수행
 - 가장 많이 추천된 주식으로 포트폴리오를 구성했을 때, 지속적으로 양의 수익률을 달성함을 확인
 
@@ -43,7 +43,7 @@ Giulio Bottazzi et al 분의 "Stock Recommendations from Stochastic Discounted C
     - Section 5: 추천 시스템 성능 분석
     - Section 6: 결론
 
-</br></br>
+<br><br>
 # 2. The stochastic discounted cash flow (SDCF) approach
 
 - SDCF는 미래 기업 성과의 불확실성을 고려해서 공정가치 분포를 계산. (자세한 것은 Bottazzi et all(2020) 논문 참고)
@@ -79,22 +79,22 @@ $$ \tilde{V_0}(\omega)=\sum_{t=1}^T\frac{CF_t(\omega)}{(1+k)^t}+\frac{CF_T(\omeg
 
 - 위의 모델은 현금흐름을 신뢰성 있게 추정하는게 중요하기 떄문에, 
 
-</br></br>
+<br><br>
 # 3. Data and Sample Selection Criteria
 
 - SDCF 모델은 일반적인 고려사항에 외존하지만, 세부사항을 구현하고 검증하기 위해선 특정 회사의 데이터를 활용해야 함
 - 본 섹션에선 방법론의 개발 및 테스트를 위한 분기별 데이터 소스를 살펴보고자 함
 
 - Thomson Reuters Eikon Datastream 데이터베이스에서 필요한 데이터를 수집했는데, 2009년 1월부터 2017년 12월까지 S&P 500에 포함된 모든 비금융 기업으로 구성됨
-</br></br>
+<br><br>
 
-![Alt text](/_posts/Image/2023-09-19-Stock-Recommendations-from-Stochastic-Discounted-Cash-Flows/image.png)
-</br></br>
+![Alt text](/jaealways.github.io/_posts/Image/2023-09-19-Stock-Recommendations-from-Stochastic-Discounted-Cash-Flows/image.png)
+<br><br>
 
 - $k$: 회사의 자본 조달 비용 추정치
 - $\tau_0$: 회사들의 한계세율
 - discount rate for the cash flow terminal value: 
-</br></br>
+<br><br>
 
 # 4. Recommendations from Fair Vaule Distributions
 
@@ -115,9 +115,9 @@ $$ \tilde{V_0}(\omega)=\sum_{t=1}^T\frac{CF_t(\omega)}{(1+k)^t}+\frac{CF_T(\omeg
 - t 시점 기업 i의 mispricing 지표는 $z_t^i$ 로그 공정가치 기대값에 로그 가격 차이를 로그 공정가치 분포의 표준편차로 나눔
 - mispricing 지표에 따라 alpha 퀀타일로 나타내고, 각각 다른 신호, 이런 시스템을 Section Squartial Quantile(CSQ)라고 함
 - CSQ는 전반적인 시장변화는 신호에 영향을 미치지 않는다는 장점이 있음
-</br></br>
+<br><br>
 - SSQ와 CSQ의 성능을 테스트하기 위해, 최초에 모든 회사에 동일한 가중치를 부여한 후, 매일 시그널을 갱신해서 일일 수익률을 계산
-</br></br>
+<br><br>
 
 # 5. Performance Evaluation
 

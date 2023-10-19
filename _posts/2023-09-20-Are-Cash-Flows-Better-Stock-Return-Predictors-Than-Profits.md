@@ -24,7 +24,7 @@ Stephen Foerster et al 분의 "Are Cash Flows Better Stock Return Predictors Tha
 - 파마 프렌치 및 다른 모델들을 통해 주식 수익을 더 잘 예측하는 재무 정보에 대한 탐색이 계속 됨
 - 기존 GAAP가 많은 방식으로 기존 재무제표를 표시하기 떄문에, 회계 정보가 표시되는 방식과 기업의 근본적인 경제적 결과 사이의 관계를 이해하기 힘듬
 - 재무제표 간의 일치성이 떨어지기 때문에, 표준화된 탬플릿을 통해 수익 가능성을 더 잘 이해함을 보이고자 함
-</br></br>
+<br><br>
 
 ```
 Direct cash flow vs Indirect cash flow
@@ -37,14 +37,14 @@ Indirect: Income Statement의 마지막 항목인 Net Income으로 시작해서 
 아래의 
 
 ```
-![Alt text](/_posts/Image/2023-09-20-Are-Cash-Flows-Better-Stock-Return-Predictors-Than-Profits/image.png)
+![Alt text](/jaealways.github.io/_posts/Image/2023-09-20-Are-Cash-Flows-Better-Stock-Return-Predictors-Than-Profits/image.png)
 
 
 
 - 직접 재무제표를 권장하는 국제회계기준(IFRS), US GAAP와 달리, 대다수의 회사들은 간접 현금흐름법을 사용
 - 이로 인해 operating cash flow가 거의 포함되지 않아, 미래 현금흐름을 공통된 방식으로 모형화할 수 없음
 - 투자자들은 free cash flow to equity(FCFE) 같은 근사치를 사용해서 이런 이슈를 해결하려 하는데, 상관관계가 45%에 불과
-</br></br>
+<br><br>
 
 - 본 연구는 불규칙적인 비영업 활동 또는 자본조달 현금흐름 보다, (영업)기술 기반 활동으로 현금을 조달한 것에 관심 있음
 - 직접현금흐름이 우수하게 미국 주식시장을 예측할 수 있다고 생각해 실증 테스트
@@ -52,12 +52,12 @@ Indirect: Income Statement의 마지막 항목인 Net Income으로 시작해서 
 - 새로운 현금흐름 비율과 high-low 포트폴리오로 측정된 미래 주식 수익률, 정보비율, 위험 조정 알파 속에서 유의미한 양의 상관관계 발견
 - 본 논문에선 영업 현금흐름 정보 외에, 현금, 세금, 자본지출 등의 정보가 점진적인 예측력을 제공해준다는 사실을 보이고자 함
 
-</br></br>
+<br><br>
 
 # 2. The Direct Cash Flow Template 
 
 - 회계학의 깊은 내용을 다루는 것 같아 패스하겠습니다.
-</br></br>
+<br><br>
 
 # 3. Data and Methodology
 
@@ -73,14 +73,14 @@ Indirect: Income Statement의 마지막 항목인 Net Income으로 시작해서 
     - CFO: (A)-Capex
 - 위의 직접현금흐름(DMCF) 지표를 간접현금흐름(CFIM, OANCF-Capex) 지표와 비교
 - 그 외에 굉장히 많은 지표들이 존재
-</br></br>
+<br><br>
 
 
 # 4. Information in Cash Flow Components
 
 - 다양한 현금흐름 구성요소가 주식 수익률에 대한 정보를 추가로 제공하는지 분석
 
-![Alt text](/_posts/Image/2023-09-20-Are-Cash-Flows-Better-Stock-Return-Predictors-Than-Profits/Table2.png)
+![Alt text](/jaealways.github.io/_posts/Image/2023-09-20-Are-Cash-Flows-Better-Stock-Return-Predictors-Than-Profits/Table2.png)
 
 - 우선 회사 간 동일 가중치의 다양한 현금흐름 측정치의 correlation을 측정
 - 이 때 지표는 아래와 같음
@@ -94,18 +94,18 @@ Indirect: Income Statement의 마지막 항목인 Net Income으로 시작해서 
 - 위 지표들을 total assets(TA)이나 market value of equity(MVE)로 나눠줌
 - CFODM/TA,CFOIM/TA 간 상관관계는 0.81인데, CFODM/TA, CFONM/TA를 측정하면 0.45까지 감소
 - 때문에 현금흐름 구성요소들에 대해 보다 엄격한 분석을 할 필요
-</br></br>
+<br><br>
 - 추가적으로, Fama and MacBeth cross-section regression을 진행했는데, 결과는 아래와 같음
 
 
 
-![Alt text](/_posts/Image/2023-09-20-Are-Cash-Flows-Better-Stock-Return-Predictors-Than-Profits/Table3.png)
+![Alt text](/jaealways.github.io/_posts/Image/2023-09-20-Are-Cash-Flows-Better-Stock-Return-Predictors-Than-Profits/Table3.png)
 
 - 
 
 # 5. Cash Flow, Profitability Return and Yield Measures, and One Month-Ahead Returns 
 
-![Alt text](/_posts/Image/2023-09-20-Are-Cash-Flows-Better-Stock-Return-Predictors-Than-Profits/Table4.png)
+![Alt text](/jaealways.github.io/_posts/Image/2023-09-20-Are-Cash-Flows-Better-Stock-Return-Predictors-Than-Profits/Table4.png)
 
 - 
 

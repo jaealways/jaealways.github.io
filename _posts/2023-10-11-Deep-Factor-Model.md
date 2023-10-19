@@ -30,7 +30,7 @@ Kei Nakagawa et al 분의 "Deep Factor Model"(2018) 논문을 참고하여 본�
 - 멀티 팩터 모델은 크게 수익률 향상과 위험 통제 목적에서 사용됨
 - **<u>팩터가 수익률에 미치는 영향을 구할 수 있다면, 좋은 팩터를 선별에 포트폴리오를 구성해 높은 수익률을 달성할 수 있음. (수익률 모델)</u>**
 - **<u>또 주요 주식 수익률 간의 상관관계를 계산해서 위험을 분산시키는데 사용할 수도 있음. (리스크 모델)</u>**
-</br></br>
+<br><br>
 - 수익률 모델과 리스크 모델 모두 선형 관계를 통해 수익률과 팩터를 설명하고자 함.
 - **<u>선형 모형은 굉장히 유용하지만, 금융 시장의 복잡성을 충분히 반영하지 못한다는 한계</u>**
 - 이에 본 논문은 비선형 관계를 표현할 수 있는 딥러닝 모델을 사용하려 하지만, 딥러닝 모델은 해석력이 떨어진다는 단점이 있음
@@ -45,7 +45,7 @@ Kei Nakagawa et al 분의 "Deep Factor Model"(2018) 논문을 참고하여 본�
 - 오늘날에 가장 유용한 팩터인 Value, Size, Momentum을 통해 수 십 년간 연구가 지속됨
 - 특히 파마 프렌치 모델을 통해 미국 주식 시장을 market(CAPM에 기반), size(기업 사이즈에 따라 구분), value(book-to-market) 팩터로 구분하려는 시도가 가장 유명
 - 최근에는 5요인 모형이 더 활발히 연구되고 있음.
-<br></br>
+<br><br>
 - 투자자는 어떤 팩터를 통해 수익률을 예측할지 방법을 선택해야 하는데, 그 중 머신러닝 기반으로 시도한 선행 연구들이 많이 있음
 - **<u>선행 연구를 통해 딥 뉴럴 네트워크가 성능이 좋음을 밝힘. 하지만, 선행 연구들은 리스크 모델로의 관점이 부족함.</u>**
 
@@ -76,7 +76,7 @@ $$ z^{(1)}=f^{(1)}(W^{(0)}X+b^{(0)}) \\ z^{(2)}=f^{(2)}(W^{(1)}z^{(1)}+b^{(1)}) 
 $$ f(x)=\sum_{d\in V(L)} R_d^{(L)}=...=\sum_{d\in V(l)} R_d^{(l)}=...=\sum_{d\in V(1)} R_d^{(1)} $$
 
 
-![Alt text](/_posts/Image/2023-10-11-Deep-Factor-Model/Figure1.png)
+![Alt text](/jaealways.github.io/_posts/Image/2023-10-11-Deep-Factor-Model/Figure1.png)
 
 - 또 한 뉴런에서 다른 뉴런으로 들어올 때와 나갈 때 같은 relevance score가 보존되는데, 아래 식처럼 계산할 수 있음
 
@@ -97,7 +97,7 @@ $$ r_i=\alpha_i+X_{i1}F_1+...+X_{iN}F_N+\epsilon_i $$
 
 - 선형 멀티 팩터 모형은 포트폴리오 분석과 투자 관리에서 매우 유용하지만, 선형성이라는 엄격한 가정을 기반으로 함
 - **<u>각 팩터는 수익률에 대해 독립이어야 하고, 수익률이 팩터 익스포져에 따라 제한 없이 커질 수 있음</u>**
-</br></br>
+<br><br>
 - 금융시장의 복잡성을 고려했을 떄, 비선형 관계로 팩터와 수익률을 나타내는 것이 더 적합할 수 있음
 - 비선형 모델에서 익스포져와 팩터 간 관계식은 아래와 같이 나타낼 수 있음. 이 때 $$\tilde{f}$$는 비선형함수
 
@@ -112,7 +112,7 @@ $$ r_i=\tilde{f}(X_{i1},...,X_{iN},\bar{F_1},...,\bar{F_N})+\epsilon_i \\
 - 하지만, 딥러닝은 모델의 투명성과 해석력이 떨어진다는 치명적인 단점이있기 때문에, **<u>LRP를 통해 예측된 수익률을 리스크 모델처럼 분해하려 함.</u>**
 - LRP를 개별 주식이나 포트폴리오 퀀타일에 적용해서, 어떤 팩터가 예측에 기여했는지 판단할 수 있음.
 
-![Alt text](/_posts/Image/2023-10-11-Deep-Factor-Model/Figure2.png)
+![Alt text](/jaealways.github.io/_posts/Image/2023-10-11-Deep-Factor-Model/Figure2.png)
 
 
 # 4. Experiment on Japanese Stock Markets
@@ -122,18 +122,18 @@ $$ r_i=\tilde{f}(X_{i1},...,X_{iN},\bar{F_1},...,\bar{F_N})+\epsilon_i \\
 - 도쿄 거래소의 인덱스인 TOPIX 데이터셋을 사용.
 - 1990년 12월부터 2016년 3월까지 수집된 월별 5개의 팩터와 17개의 팩터 익스포져로 구성됨
 
-![Alt text](/_posts/Image/2023-10-11-Deep-Factor-Model/Table1.png)
+![Alt text](/jaealways.github.io/_posts/Image/2023-10-11-Deep-Factor-Model/Table1.png)
 
 ## 4.2 Model
 
 - Table3처럼 훈련 데이터를 가짐.
 
-![Alt text](/_posts/Image/2023-10-11-Deep-Factor-Model/Table3.png)
+![Alt text](/jaealways.github.io/_posts/Image/2023-10-11-Deep-Factor-Model/Table3.png)
 
 
 - 선형 회귀를 베이스라인으로 삼고, 아래 모델들을 통해 성능을 비교하고자 함
 
-![Alt text](/_posts/Image/2023-10-11-Deep-Factor-Model/Table2.png)
+![Alt text](/jaealways.github.io/_posts/Image/2023-10-11-Deep-Factor-Model/Table2.png)
 
 - 최근 5년 간의 60 셋의 데이터를 통해 모델을 학습시켰고, 새로운 월 데이터가 들어올 때 마다 학습이 갱신됨.
 - 이를 통해 과거 06년 ~ 16년까지 120개월의 결과를 예측하고자 함. 각 모델의 효과를 검증하기 위해 해당 모델과 분위수 모델의 확률을 비교했음
@@ -144,22 +144,22 @@ $$ r_i=\tilde{f}(X_{i1},...,X_{iN},\bar{F_1},...,\bar{F_N})+\epsilon_i \\
 
 - 아래 처럼 **<u>deep factor 모델이 전반적으로 좋은 성능 보임. 이를 통해 금융시장에서 수익률과 팩터의 관계가 비선형적임을 추측할 수 있음</u>**
 
-![Alt text](/_posts/Image/2023-10-11-Deep-Factor-Model/Table4.png)
+![Alt text](/jaealways.github.io/_posts/Image/2023-10-11-Deep-Factor-Model/Table4.png)
 
 
 ## 4.4 Interpretation
 
 - 아래 Figure3은 LRP를 사용해 예측에 기여한 팩터를 백분율로 나타냄.
 
-![Alt text](/_posts/Image/2023-10-11-Deep-Factor-Model/Figure3.png)
+![Alt text](/jaealways.github.io/_posts/Image/2023-10-11-Deep-Factor-Model/Figure3.png)
 
 
 - **<u>수익률과 분위수 포트폴리오 양쪽에서 quality, value factor가 절반 이상을 차지함</u>**
 - 모멘텀 팩터는 그닥 효과가 없지만, 밸류 팩터는 어느 정도 효과를 보임
-</br></br>
+<br><br>
 - LRP를 통해 리스크 모델을 아래 Table5처럼 검증함
 
-![Alt text](/_posts/Image/2023-10-11-Deep-Factor-Model/Table5.png)
+![Alt text](/jaealways.github.io/_posts/Image/2023-10-11-Deep-Factor-Model/Table5.png)
 
 - 각 팩터 수익률과 Descriptors 간의 평균 상관계수를 계산함
 - **<u>밸류와 사이즈 팩터는 LRP와 상관계수에서 큰 차이를 보이는데, 밸류 팩터는 LRP에서 큰 비중이었지만, 상관계수에선 작은 비중</u>**

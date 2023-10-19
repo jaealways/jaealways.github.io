@@ -26,7 +26,7 @@ Andrew D. Back, Andreas S. Weigend 분의 "A First Application of Independent Co
 - ICA와 PCA는 component를 통해 선형변환을 한다는 공통점
 - PCA는 상관관계가 없는 주성분을 얻으려 하고 분산이 중요하지만, ICA는 통계적으로 독립적인 component를 얻고자 함
 - PCA는 2차통계량까지만 사용하지만, ICA는 더 높은 통계량을 사용할 수 있음
-</br></br>
+<br><br>
 
 
 # 2. ICA in General
@@ -53,7 +53,7 @@ Andrew D. Back, Andreas S. Weigend 분의 "A First Application of Independent Co
 - 본 논문에서는 JADE(Joint Approximate Diagonalization of Eigenmatrices) 알고리즘을 사용했는데, 다음과 같은 순서로 진행됨
     - 샘플 공분산 행렬을 계산해서, 관측된 아웃풋의 이차통계량을 제공(?), 이를 통해 행렬은 관측치를 whiten하는 효과
     - whiten된 데이터에서 4차누적값을 통해 eigen행렬은 대각화하는 rotation matrix를 찾음, 이를 통해 각 component는 독립
-  <br></br>  
+  <br><br>  
 - JADE와 같은 on-line 업데이트 알고리즘은 매 시점마다 matrix inversion을 해야하는 문제점을 극복함
 - 이 외에도 MLE를 기반으로 하는 contextual ICA, nonlinear mixing을 하는 ICA 등 다양한 방법이 시도됨
 
@@ -72,14 +72,14 @@ Andrew D. Back, Andreas S. Weigend 분의 "A First Application of Independent Co
 
 ## 4.2 Structure of the Independent Components
 - JADE 알고리즘을 통해 ICA를 구했는데, 첫 번째 IC는 figure5와 같음
-</br></br>
+<br><br>
 
-![Alt text](image-11.png)</br></br>
+![Alt text](image-11.png)<br><br>
 
 
 ![Alt text](image-12.png)
 
-</br></br>
+<br><br>
 
 - 독립성을 가정한 목표가 1987년의 crash를 몇 가지 component만으로도 잘 포착하기 위함임
 - mixing 행렬 A를 수익률에 곱해서 weighted ICs를 구할 수 있는데, 최대 진폭을 가진 IC를 dominant IC라 함, 이 때 분산 같은 다른 측정치는 최대값이 아니라 평균에 주목(?)
@@ -90,17 +90,17 @@ Andrew D. Back, Andreas S. Weigend 분의 "A First Application of Independent Co
 
 ![Alt text](image-13.png)
 
-</br></br>
+<br><br>
 
 - 주식 수익률을 통해 얻어진 IC는 다음과 같은 특징 가짐
     - 소수의 IC가 주식 수익률 움직임을 대부분 설명
     - 지배적인 IC의 최대 진폭이 주요 level 변화를 설명함
     - 작은 진폭의 IC가 작은 시점 변화에 영향을 줌(?)
-- Figure7을 통해 주요 몇 개의 IC가 대부분의 움직임 설명하는 것을 알 수 있음</br></br>
+- Figure7을 통해 주요 몇 개의 IC가 대부분의 움직임 설명하는 것을 알 수 있음<br><br>
 
 
 ![Alt text](image-14.png)
-</br></br>
+<br><br>
 
 
 ## 4.3 Thresholded ICs Characterize Turning Points

@@ -48,8 +48,8 @@ Wijnand Nuij et al 분의 "An Automated Framework for Incorporating News into St
 - 역사적 주가 데이터와 관련 회사의 뉴스 데이터를 분석에 사용(2007.01.01 ~ 2007.04.30)
 - 2008년 8월 1일 FTSE 350 주가 지수에 포함된 모든 350개 회사로 구성
 - 뉴스 데이터는 해당 모든 종목의 Reuter 뉴스 피드를 통해 수집(5157개 이벤트 정의)
-- 중복된 이벤트를 제거하고, 0.5% 비중 미만의 뉴스를 제거하여 총 2112개 이벤트로 줄어듬</br></br>
-![Alt text](/_posts/Image/2023-09-27-An-Automated-Framework-for-Incorporating-News-into-Stock-Trading-Strategies/Figure1.png)
+- 중복된 이벤트를 제거하고, 0.5% 비중 미만의 뉴스를 제거하여 총 2112개 이벤트로 줄어듬<br><br>
+![Alt text](/jaealways.github.io/_posts/Image/2023-09-27-An-Automated-Framework-for-Incorporating-News-into-Stock-Trading-Strategies/Figure1.png)
 
 ## 3.3 Relationship between News and Share Prices
 - 한 종목 수익률은 아래와 같이 구함
@@ -65,7 +65,7 @@ $$A_i=\frac{\Sigma_{j=1}^N a_j}{N}$$
     - 각 이벤트가 수익률의 방향과 일치하는 퍼센트를 계산(d)
     - 각 이벤트의 수익률 t검정 결과(p)
 
-![Alt text](/_posts/Image/2023-09-27-An-Automated-Framework-for-Incorporating-News-into-Stock-Trading-Strategies/Table1.png)
+![Alt text](/jaealways.github.io/_posts/Image/2023-09-27-An-Automated-Framework-for-Incorporating-News-into-Stock-Trading-Strategies/Table1.png)
 
 - 위 테이블의 결과를 해석할 때 아래 세 가지를 주목해야 함
     - 여러 이벤트가 수익률에 영향을 미쳤겠지만, 리스트에 있는 이벤트가 큰 비중을 차지했다고 가정
@@ -78,9 +78,9 @@ $$A_i=\frac{\Sigma_{j=1}^N a_j}{N}$$
 - 초과 단기 수익률(A0,A1,A2)에선 rating up, shares up, acquisition start, shares down 이벤트가, 초과 장기 수익률(A5,A10)에선 rating up, shares up, rating positive, price target raised, profit up, shares down 이벤트가 유의미한 결과 보임
 
 - 사전에 정의된 impact와 절대수익률(초과수익률) 간의 상관관계는 아래 Table2와 같음
-</br></br>
-![Alt text](/_posts/Image/2023-09-27-An-Automated-Framework-for-Incorporating-News-into-Stock-Trading-Strategies/Table2.png)
-</br></br>
+<br><br>
+![Alt text](/jaealways.github.io/_posts/Image/2023-09-27-An-Automated-Framework-for-Incorporating-News-into-Stock-Trading-Strategies/Table2.png)
+<br><br>
 - 본 챕터의 결론은 다음과 같음
     - 뉴스에서 추출된 이벤트를 거래전략에 사용할 수 있으며, 유의미한 양의 수익률을 기록
     - 이벤트의 (사전에 정의된) impact와 수익률 간의 유의미한 상관관계
@@ -114,17 +114,17 @@ $$C_i=\frac{P_i-P_{i-10}}{P_{i-10}}$$
 $$D_i=E[12]_i-E[26]_i$$
 
 ## 4.7 Performance of Technical Trading Indicators
-- 아래 Table3을 통해 각 기술지표가 생성한 수익률 확인할 수 있음. 단순이동평균과 지수이동평균이 좋은 성능 보임.</br></br>
-![Alt text](/_posts/Image/2023-09-27-An-Automated-Framework-for-Incorporating-News-into-Stock-Trading-Strategies/Table3.png)
+- 아래 Table3을 통해 각 기술지표가 생성한 수익률 확인할 수 있음. 단순이동평균과 지수이동평균이 좋은 성능 보임.<br><br>
+![Alt text](/jaealways.github.io/_posts/Image/2023-09-27-An-Automated-Framework-for-Incorporating-News-into-Stock-Trading-Strategies/Table3.png)
 
 # 5. A NEWS-BASED TRADING FRAMEWORK
 - 유전 프로그래밍(초기값을 로직에 따라 변형해서 후대 유전자를 만들어 변화가 없을 때까지 해당 과정을 반복)을 통해 뉴스를 주식 거래에 활용하는 프레임워크를 구축
 - 아래 Figure2처럼 트리 기반으로 AND, OR 연산자를 넣어 거리 신호를 발생시킴
-</br></br>
-![Alt text](/_posts/Image/2023-09-27-An-Automated-Framework-for-Incorporating-News-into-Stock-Trading-Strategies/Figure2.png)
-</br></br>
+<br><br>
+![Alt text](/jaealways.github.io/_posts/Image/2023-09-27-An-Automated-Framework-for-Incorporating-News-into-Stock-Trading-Strategies/Figure2.png)
+<br><br>
 - 구체적인 알고리즘은 아래와 같고, **<u>기술적 지표의 모수를 변경시키는 방법으로 알고리즘 학습시킴</u>**
-</br></br>
+<br><br>
 
 ```
 Algorithm 1 Genetic programming.
@@ -155,34 +155,34 @@ end while
 return π
 ```
 - 아래 Figure3을 통해 프레임워크를 한 눈에 정리
-</br></br>
-![Alt text](/_posts/Image/2023-09-27-An-Automated-Framework-for-Incorporating-News-into-Stock-Trading-Strategies/Figure3.png)
-</br></br>
+<br><br>
+![Alt text](/jaealways.github.io/_posts/Image/2023-09-27-An-Automated-Framework-for-Incorporating-News-into-Stock-Trading-Strategies/Figure3.png)
+<br><br>
 
 # 6. EXPERIMENTS AND RESULTS
 - 본 챕터에선 위의 프레임워크에 대한 검증을 하고, 결과에 대해 말하고자 함
 
 ## 6.1 Performance of Individual Events
 - 뉴스 데이터를 통해 생성된 시그널의 수익률은 아래 Table4와 같음.
-</br></br>
-![Alt text](/_posts/Image/2023-09-27-An-Automated-Framework-for-Incorporating-News-into-Stock-Trading-Strategies/Table4.png)
-</br></br>
+<br><br>
+![Alt text](/jaealways.github.io/_posts/Image/2023-09-27-An-Automated-Framework-for-Incorporating-News-into-Stock-Trading-Strategies/Table4.png)
+<br><br>
 ## 6.2 News and Technical Indicators
 - **<u>뉴스와 기술지표 각각이 좋은 성능을 보였기 때문에, 이 둘을 결합하여 더 개선된 성과를 얻었음(Table5)</u>**
 
-</br></br>
-![Alt text](/_posts/Image/2023-09-27-An-Automated-Framework-for-Incorporating-News-into-Stock-Trading-Strategies/Table5.png)
-</br></br>
+<br><br>
+![Alt text](/jaealways.github.io/_posts/Image/2023-09-27-An-Automated-Framework-for-Incorporating-News-into-Stock-Trading-Strategies/Table5.png)
+<br><br>
 
 ## 6.3 Optimal Trading Strategies
 - 유전 프로그램을 통해 무작위로 생성한 50개의 거래 규칙을 15세대에 거쳐 모수를 변형한 결과는 Table6과 같음
-</br></br>
-![Alt text](/_posts/Image/2023-09-27-An-Automated-Framework-for-Incorporating-News-into-Stock-Trading-Strategies/Table6.png)
-</br></br>
+<br><br>
+![Alt text](/jaealways.github.io/_posts/Image/2023-09-27-An-Automated-Framework-for-Incorporating-News-into-Stock-Trading-Strategies/Table6.png)
+<br><br>
 - 결과를 검증하기 위해 2010.05.01~2010.09.30의 기간에 **<u>S&P500 데이터로 실험을 수행했을 때, 많은 부분에서 FTSE 데이터와 유사함.</u>**
-</br></br>
-![Alt text](/_posts/Image/2023-09-27-An-Automated-Framework-for-Incorporating-News-into-Stock-Trading-Strategies/Table7.png)
-</br></br>
+<br><br>
+![Alt text](/jaealways.github.io/_posts/Image/2023-09-27-An-Automated-Framework-for-Incorporating-News-into-Stock-Trading-Strategies/Table7.png)
+<br><br>
 
 # 7. PRACTICAL CONSIDERATIONS
 - 위의 기술을 새로운 도메인에 적용할 때는, 뉴스에서 이벤트 추출, 이벤트 기반으로 거래 규칙을 생성하는 다양한 단계를 고려해야 함
