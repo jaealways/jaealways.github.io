@@ -39,7 +39,6 @@ Aleksei Malinovskii 분의 "Term Structure Analysis using PCA"(2022) 논문을 �
 ## 2.3 Linear transformation
 
 - $V=(v_1,...v_p)$를 loading matrix라 할 때, 다음을 만족해야 함
-
     - 유클리드 norm: $||V_k||^2=1$
     - $V$와 ${Z_k}$가 서로 직교
     - 분산이 내림차순(상위 $n$개를 선택하기 위함)

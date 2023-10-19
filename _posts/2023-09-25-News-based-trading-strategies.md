@@ -53,7 +53,7 @@ Stefan Feuerriegel et al 분의 "News-based trading strategies"(2018) 논문을 
 
 # 4. Trading strategies
 
-![Alt text](_posts/Image/2023-09-25-News-based-trading-strategies/Fig1.png)
+![Alt text](Image/2023-09-25-News-based-trading-strategies/Fig1.png)
 
 - Figure1은 뉴스 거래 기반 의사결정 시스템을 그림으로 표현한 것. 크게 다음 과정을 포함하고 있음
     - 텍스트를 통해 뉴스 감성을 추출함
@@ -97,35 +97,35 @@ $$ RoC_{i,t}=\frac{p_{i,t}-p_{i,t-\delta}}{p_{i,t-\delta}} $$
 ## 5.2 News trading
 - 뉴스 기반 데이터를 투자 결정 모델에 어떻게 포함시킬까?
 - [앞서 살펴본 것처럼,](#42-rule-based-news-trading) 임계치 $\theta_s$를 먼저 정의하는 것이 중요. 아래 Figure3에 의하면 10% 내외의 임계치를 정하는게 가장 좋은 결과 보임.
-![Alt text](_posts/Image/2023-09-25-News-based-trading-strategies/Fig3.png)
+![Alt text](Image/2023-09-25-News-based-trading-strategies/Fig3.png)
 
 - 10% 분위수를 기준으로, 뉴스 기반 전략을 평가하면, 일평균 수익률은 0.4722%, 변동성은 0.078
 - 뉴스와 모멘텀을 결합한 전략을 사용하면 일평균 수익률은 0.0335%까지 낮아지지만, 변동성도 0.028로 낮아져서 위험에 상대적으로 덜 노출됨.
-![Alt text](_posts/Image/2023-09-25-News-based-trading-strategies/Fig4.png)
+![Alt text](Image/2023-09-25-News-based-trading-strategies/Fig4.png)
 
 - Figure4는 두 전략의 첫 500 영업일 동안의 누적수익률을 보여주는데, 모멘텀을 같이 고려한 전략의 변동성(위험)이 감소한 것을 확인
 - 두 전략 모두 다른 뉴스 기반 전략 보다 많은 거래(2~3 영업일마다 거래가 발생)를 하지만, 더 높은 평균 수익률을 거둠
-![Alt text](_posts/Image/2023-09-25-News-based-trading-strategies/Fig6.png)
+![Alt text](Image/2023-09-25-News-based-trading-strategies/Fig6.png)
 
 - 위의 Figure6에서 볼 수 있듯이, 지도학습이 조금 더 우수한 수익률을 보였지만, 강화학습의 변동성이 더 낮았음. 
 
 ## 5.3. Comparison
 - 2004년 1월에 시작해서 1956 영업일 동안 거래한 결과가 아래 Table 1과 같음
-![Alt text](_posts/Image/2023-09-25-News-based-trading-strategies/Table1.png)
+![Alt text](Image/2023-09-25-News-based-trading-strategies/Table1.png)
 - 벤치마크 CDAX는 일평균 0.0298%, 모멘텀 전략은 0.0464%, **<u>뉴스 전략 시 0.4722%, 지도학습을 통하면 1.1807%를 달성</u>**
 - 거래비용을 0.1%로 가정했으며, **<u>단순히 수익률만 높다고 우수하다고 할 수 없기 때문에 변동성 대비 수익률을 측정함</u>**
 
 ## 5.4 Statistical tests
 - 본 챕터에선 일일 수익률이 0 보다 높음을 보이기 위해, 윌콕슨 검정, t 검정을 수행
 - 아래 Table2를 통해 통계적으로 유의함을 밝혔고, **<u>거래 전략을 사용할 경우 일일 수익률이 0 이상이라 결론</u>**<br><br>
-![Alt text](_posts/Image/2023-09-25-News-based-trading-strategies/Table2.png)
+![Alt text](Image/2023-09-25-News-based-trading-strategies/Table2.png)
 
 - 아래 Table3를 통해 비정상수익률(통상적인 시장 움직임 이상의 주가 변화)도 0 이상임이 통계적으로 유의함
-![Alt text](_posts/Image/2023-09-25-News-based-trading-strategies/Table3.png)
+![Alt text](Image/2023-09-25-News-based-trading-strategies/Table3.png)
 
 ## 5.5 Example
 - 아래 Figure7처럼 공시로 인해 SAP 주가는 급상승(3.98%)했는데, CDAX 지수는 일정한 수준 보임. 3.79%의 비정상 수익률 기록
-![Alt text](_posts/Image/2023-09-25-News-based-trading-strategies/Fig7.png)
+![Alt text](Image/2023-09-25-News-based-trading-strategies/Fig7.png)
 
 # 6. Discussion
 - 본 챕터에선 시사점과 한계점에 대해 말하고자 함

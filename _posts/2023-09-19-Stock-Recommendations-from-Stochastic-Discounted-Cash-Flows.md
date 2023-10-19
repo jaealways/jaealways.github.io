@@ -88,7 +88,7 @@ $$ \tilde{V_0}(\omega)=\sum_{t=1}^T\frac{CF_t(\omega)}{(1+k)^t}+\frac{CF_T(\omeg
 - Thomson Reuters Eikon Datastream 데이터베이스에서 필요한 데이터를 수집했는데, 2009년 1월부터 2017년 12월까지 S&P 500에 포함된 모든 비금융 기업으로 구성됨
 <br><br>
 
-![Alt text](_posts/Image/2023-09-19-Stock-Recommendations-from-Stochastic-Discounted-Cash-Flows/image.png)
+![Alt text](Image/2023-09-19-Stock-Recommendations-from-Stochastic-Discounted-Cash-Flows/image.png)
 <br><br>
 
 - $k$: 회사의 자본 조달 비용 추정치

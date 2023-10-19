@@ -76,7 +76,7 @@ $$ z^{(1)}=f^{(1)}(W^{(0)}X+b^{(0)}) \\ z^{(2)}=f^{(2)}(W^{(1)}z^{(1)}+b^{(1)}) 
 $$ f(x)=\sum_{d\in V(L)} R_d^{(L)}=...=\sum_{d\in V(l)} R_d^{(l)}=...=\sum_{d\in V(1)} R_d^{(1)} $$
 
 
-![Alt text](_posts/Image/2023-10-11-Deep-Factor-Model/Figure1.png)
+![Alt text](Image/2023-10-11-Deep-Factor-Model/Figure1.png)
 
 - 또 한 뉴런에서 다른 뉴런으로 들어올 때와 나갈 때 같은 relevance score가 보존되는데, 아래 식처럼 계산할 수 있음
 
@@ -112,7 +112,7 @@ $$ r_i=\tilde{f}(X_{i1},...,X_{iN},\bar{F_1},...,\bar{F_N})+\epsilon_i \\
 - 하지만, 딥러닝은 모델의 투명성과 해석력이 떨어진다는 치명적인 단점이있기 때문에, **<u>LRP를 통해 예측된 수익률을 리스크 모델처럼 분해하려 함.</u>**
 - LRP를 개별 주식이나 포트폴리오 퀀타일에 적용해서, 어떤 팩터가 예측에 기여했는지 판단할 수 있음.
 
-![Alt text](_posts/Image/2023-10-11-Deep-Factor-Model/Figure2.png)
+![Alt text](Image/2023-10-11-Deep-Factor-Model/Figure2.png)
 
 <br><br>
 # 4. Experiment on Japanese Stock Markets
@@ -122,18 +122,18 @@ $$ r_i=\tilde{f}(X_{i1},...,X_{iN},\bar{F_1},...,\bar{F_N})+\epsilon_i \\
 - 도쿄 거래소의 인덱스인 TOPIX 데이터셋을 사용.
 - 1990년 12월부터 2016년 3월까지 수집된 월별 5개의 팩터와 17개의 팩터 익스포져로 구성됨
 
-![Alt text](_posts/Image/2023-10-11-Deep-Factor-Model/Table1.png)
+![Alt text](Image/2023-10-11-Deep-Factor-Model/Table1.png)
 <br>
 ## 4.2 Model
 
 - Table3처럼 훈련 데이터를 가짐.
 
-![Alt text](_posts/Image/2023-10-11-Deep-Factor-Model/Table3.png)
+![Alt text](Image/2023-10-11-Deep-Factor-Model/Table3.png)
 
 
 - 선형 회귀를 베이스라인으로 삼고, 아래 모델들을 통해 성능을 비교하고자 함
 
-![Alt text](_posts/Image/2023-10-11-Deep-Factor-Model/Table2.png)
+![Alt text](Image/2023-10-11-Deep-Factor-Model/Table2.png)
 
 - 최근 5년 간의 60 셋의 데이터를 통해 모델을 학습시켰고, 새로운 월 데이터가 들어올 때 마다 학습이 갱신됨.
 - 이를 통해 과거 06년 ~ 16년까지 120개월의 결과를 예측하고자 함. 각 모델의 효과를 검증하기 위해 해당 모델과 분위수 모델의 확률을 비교했음
@@ -144,14 +144,14 @@ $$ r_i=\tilde{f}(X_{i1},...,X_{iN},\bar{F_1},...,\bar{F_N})+\epsilon_i \\
 
 - 아래 처럼 **<u>deep factor 모델이 전반적으로 좋은 성능 보임. 이를 통해 금융시장에서 수익률과 팩터의 관계가 비선형적임을 추측할 수 있음</u>**
 
-![Alt text](_posts/Image/2023-10-11-Deep-Factor-Model/Table4.png)
+![Alt text](Image/2023-10-11-Deep-Factor-Model/Table4.png)
 <br>
 
 ## 4.4 Interpretation
 
 - 아래 Figure3은 LRP를 사용해 예측에 기여한 팩터를 백분율로 나타냄.
 
-![Alt text](_posts/Image/2023-10-11-Deep-Factor-Model/Figure3.png)
+![Alt text](Image/2023-10-11-Deep-Factor-Model/Figure3.png)
 
 
 - **<u>수익률과 분위수 포트폴리오 양쪽에서 quality, value factor가 절반 이상을 차지함</u>**
@@ -159,7 +159,7 @@ $$ r_i=\tilde{f}(X_{i1},...,X_{iN},\bar{F_1},...,\bar{F_N})+\epsilon_i \\
 <br><br>
 - LRP를 통해 리스크 모델을 아래 Table5처럼 검증함
 
-![Alt text](_posts/Image/2023-10-11-Deep-Factor-Model/Table5.png)
+![Alt text](Image/2023-10-11-Deep-Factor-Model/Table5.png)
 
 - 각 팩터 수익률과 Descriptors 간의 평균 상관계수를 계산함
 - **<u>밸류와 사이즈 팩터는 LRP와 상관계수에서 큰 차이를 보이는데, 밸류 팩터는 LRP에서 큰 비중이었지만, 상관계수에선 작은 비중</u>**
