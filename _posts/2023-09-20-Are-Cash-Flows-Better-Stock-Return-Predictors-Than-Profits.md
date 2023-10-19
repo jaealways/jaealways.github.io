@@ -37,7 +37,7 @@ Indirect: Income Statement의 마지막 항목인 Net Income으로 시작해서 
 아래의 
 
 ```
-![Alt text](jaealways.github.io/_posts/Image/2023-09-20-Are-Cash-Flows-Better-Stock-Return-Predictors-Than-Profits/image.png)
+![Alt text](posts/Image/2023-09-20-Are-Cash-Flows-Better-Stock-Return-Predictors-Than-Profits/image.png)
 
 
 
@@ -80,7 +80,7 @@ Indirect: Income Statement의 마지막 항목인 Net Income으로 시작해서 
 
 - 다양한 현금흐름 구성요소가 주식 수익률에 대한 정보를 추가로 제공하는지 분석
 
-![Alt text](jaealways.github.io/_posts/Image/2023-09-20-Are-Cash-Flows-Better-Stock-Return-Predictors-Than-Profits/Table2.png)
+![Alt text](posts/Image/2023-09-20-Are-Cash-Flows-Better-Stock-Return-Predictors-Than-Profits/Table2.png)
 
 - 우선 회사 간 동일 가중치의 다양한 현금흐름 측정치의 correlation을 측정
 - 이 때 지표는 아래와 같음
@@ -99,13 +99,13 @@ Indirect: Income Statement의 마지막 항목인 Net Income으로 시작해서 
 
 
 
-![Alt text](jaealways.github.io/_posts/Image/2023-09-20-Are-Cash-Flows-Better-Stock-Return-Predictors-Than-Profits/Table3.png)
+![Alt text](posts/Image/2023-09-20-Are-Cash-Flows-Better-Stock-Return-Predictors-Than-Profits/Table3.png)
 
 - 
 
 # 5. Cash Flow, Profitability Return and Yield Measures, and One Month-Ahead Returns 
 
-![Alt text](jaealways.github.io/_posts/Image/2023-09-20-Are-Cash-Flows-Better-Stock-Return-Predictors-Than-Profits/Table4.png)
+![Alt text](posts/Image/2023-09-20-Are-Cash-Flows-Better-Stock-Return-Predictors-Than-Profits/Table4.png)
 
 - 
 

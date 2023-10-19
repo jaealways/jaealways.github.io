@@ -13,7 +13,7 @@ Kei Nakagawa et al 분의 "Deep Factor Model"(2018) 논문을 참고하여 본�
 
 [reference: Kei Nakagawa et al, "Deep Factor Model", 2018](https://arxiv.org/pdf/1810.01278.pdf)
 
-
+<br><br>
 # 0. Abstract
 
 - 비선형 관계를 표현한다는 점에서 딥러닝은 강점을 가짐.
@@ -22,7 +22,7 @@ Kei Nakagawa et al 분의 "Deep Factor Model"(2018) 논문을 참고하여 본�
 - 위의 Deep Factor Model을 통해 실증 분석 후, 우수한 성능을 가짐을 입증하고자 함 
 
 
-
+<br><br>
 # 1. Introduction
 
 - 멀티 팩터 모델은 Ross의 Arbitrage Pricing Theory(APT) 모형에서 출발했는데, 실제로는 파마 프렌치 접근이나 BARRA 접근법이 널리 사용되고 있음
@@ -38,7 +38,7 @@ Kei Nakagawa et al 분의 "Deep Factor Model"(2018) 논문을 참고하여 본�
 - **<u>Layer-wise relevance propagation(이하 LRP)은 입력의 기여도를 계산하는 방법으로, 어떤 요인이 예측에 기여했는지 살펴보고자 함 (이를 deep fator model이라 칭함)</u>**
 - 본 논문에선 일본 주식시장을 통해 실증분석을 실시해서 deep factor model이 어떻게 우수한지 설명하고자 함
 
-
+<br><br>
 # 2. Related Works
 
 - 주식 수익률을 예측하는 것은 중요한 이슈로 수 백개의 선행 연구와 요인을 통해 설명하고자 시도했음
@@ -49,9 +49,9 @@ Kei Nakagawa et al 분의 "Deep Factor Model"(2018) 논문을 참고하여 본�
 - 투자자는 어떤 팩터를 통해 수익률을 예측할지 방법을 선택해야 하는데, 그 중 머신러닝 기반으로 시도한 선행 연구들이 많이 있음
 - **<u>선행 연구를 통해 딥 뉴럴 네트워크가 성능이 좋음을 밝힘. 하지만, 선행 연구들은 리스크 모델로의 관점이 부족함.</u>**
 
-
+<br><br>
 # 3. Methodology – Deep Factor Model
-
+<br>
 ## 3.1 Deep Learning
 
 
@@ -67,7 +67,7 @@ $$ z^{(1)}=f^{(1)}(W^{(0)}X+b^{(0)}) \\ z^{(2)}=f^{(2)}(W^{(1)}z^{(1)}+b^{(1)}) 
 
 - 레이어 아웃풋을 보통 sigmoid나 ReLU 활성화함수를 통해 변환함
 
-
+<br>
 ## 3.2 Layer-Wise Relevance Propagation
 
 - LRP는 네트워크를 예측으로부터 이전 노드의 기여도를 역산하는 방법임.
@@ -76,13 +76,13 @@ $$ z^{(1)}=f^{(1)}(W^{(0)}X+b^{(0)}) \\ z^{(2)}=f^{(2)}(W^{(1)}z^{(1)}+b^{(1)}) 
 $$ f(x)=\sum_{d\in V(L)} R_d^{(L)}=...=\sum_{d\in V(l)} R_d^{(l)}=...=\sum_{d\in V(1)} R_d^{(1)} $$
 
 
-![Alt text](jaealways.github.io/_posts/Image/2023-10-11-Deep-Factor-Model/Figure1.png)
+![Alt text](posts/Image/2023-10-11-Deep-Factor-Model/Figure1.png)
 
 - 또 한 뉴런에서 다른 뉴런으로 들어올 때와 나갈 때 같은 relevance score가 보존되는데, 아래 식처럼 계산할 수 있음
 
 $$ R_i^{l}=\sum_j \frac{z_{ij}^{(l,l+1)}}{\sum_k z_{kj}^{(l,l+1)}}R_j^{(l+1)}, z_{ij}^{(l,l+1)}=w_{ij}z_i^{(l)} $$
 
-
+<br>
 ## 3.3 Deep Factor Model
 
 - 본 논문에서는 딥러닝의 비선형 관계를 통해 수익률과 리스크를 통합된 방식으로 표현하고자 함
@@ -112,46 +112,46 @@ $$ r_i=\tilde{f}(X_{i1},...,X_{iN},\bar{F_1},...,\bar{F_N})+\epsilon_i \\
 - 하지만, 딥러닝은 모델의 투명성과 해석력이 떨어진다는 치명적인 단점이있기 때문에, **<u>LRP를 통해 예측된 수익률을 리스크 모델처럼 분해하려 함.</u>**
 - LRP를 개별 주식이나 포트폴리오 퀀타일에 적용해서, 어떤 팩터가 예측에 기여했는지 판단할 수 있음.
 
-![Alt text](jaealways.github.io/_posts/Image/2023-10-11-Deep-Factor-Model/Figure2.png)
+![Alt text](posts/Image/2023-10-11-Deep-Factor-Model/Figure2.png)
 
-
+<br><br>
 # 4. Experiment on Japanese Stock Markets
-
+<br>
 ## 4.1 Data
 
 - 도쿄 거래소의 인덱스인 TOPIX 데이터셋을 사용.
 - 1990년 12월부터 2016년 3월까지 수집된 월별 5개의 팩터와 17개의 팩터 익스포져로 구성됨
 
-![Alt text](jaealways.github.io/_posts/Image/2023-10-11-Deep-Factor-Model/Table1.png)
-
+![Alt text](posts/Image/2023-10-11-Deep-Factor-Model/Table1.png)
+<br>
 ## 4.2 Model
 
 - Table3처럼 훈련 데이터를 가짐.
 
-![Alt text](jaealways.github.io/_posts/Image/2023-10-11-Deep-Factor-Model/Table3.png)
+![Alt text](posts/Image/2023-10-11-Deep-Factor-Model/Table3.png)
 
 
 - 선형 회귀를 베이스라인으로 삼고, 아래 모델들을 통해 성능을 비교하고자 함
 
-![Alt text](jaealways.github.io/_posts/Image/2023-10-11-Deep-Factor-Model/Table2.png)
+![Alt text](posts/Image/2023-10-11-Deep-Factor-Model/Table2.png)
 
 - 최근 5년 간의 60 셋의 데이터를 통해 모델을 학습시켰고, 새로운 월 데이터가 들어올 때 마다 학습이 갱신됨.
 - 이를 통해 과거 06년 ~ 16년까지 120개월의 결과를 예측하고자 함. 각 모델의 효과를 검증하기 위해 해당 모델과 분위수 모델의 확률을 비교했음
 - 롱숏 전략을 통해 net-zero 투자를 했는데, 분위수 포트폴리오와 같은 가중치로 주식을 매수 매도 함.
 - 연평균 수익률, risk, 샤프 비율을 구했고, MAE, RMSE를 통해 예측 정확성을 측정하고자 했음
-
+<br>
 ## 4.3 Results
 
 - 아래 처럼 **<u>deep factor 모델이 전반적으로 좋은 성능 보임. 이를 통해 금융시장에서 수익률과 팩터의 관계가 비선형적임을 추측할 수 있음</u>**
 
-![Alt text](jaealways.github.io/_posts/Image/2023-10-11-Deep-Factor-Model/Table4.png)
-
+![Alt text](posts/Image/2023-10-11-Deep-Factor-Model/Table4.png)
+<br>
 
 ## 4.4 Interpretation
 
 - 아래 Figure3은 LRP를 사용해 예측에 기여한 팩터를 백분율로 나타냄.
 
-![Alt text](jaealways.github.io/_posts/Image/2023-10-11-Deep-Factor-Model/Figure3.png)
+![Alt text](posts/Image/2023-10-11-Deep-Factor-Model/Figure3.png)
 
 
 - **<u>수익률과 분위수 포트폴리오 양쪽에서 quality, value factor가 절반 이상을 차지함</u>**
@@ -159,13 +159,13 @@ $$ r_i=\tilde{f}(X_{i1},...,X_{iN},\bar{F_1},...,\bar{F_N})+\epsilon_i \\
 <br><br>
 - LRP를 통해 리스크 모델을 아래 Table5처럼 검증함
 
-![Alt text](jaealways.github.io/_posts/Image/2023-10-11-Deep-Factor-Model/Table5.png)
+![Alt text](posts/Image/2023-10-11-Deep-Factor-Model/Table5.png)
 
 - 각 팩터 수익률과 Descriptors 간의 평균 상관계수를 계산함
 - **<u>밸류와 사이즈 팩터는 LRP와 상관계수에서 큰 차이를 보이는데, 밸류 팩터는 LRP에서 큰 비중이었지만, 상관계수에선 작은 비중</u>**
 - 사이즈 팩터는 반대로 LRP에서 작지만 상관계수에선 큰 비중.
 - 때문에 상관계수를 통해 수익률 팩터에 대한 해석을 보정해야 함
-
+<br><br>
 
 # 5. Conclusion
 
@@ -175,3 +175,4 @@ $$ r_i=\tilde{f}(X_{i1},...,X_{iN},\bar{F_1},...,\bar{F_N})+\epsilon_i \\
     - **<u>LRP를 통해 어떤 팩터가 예측에 기여했는지 판단할 수 있음</u>**
 - 위의 결과를 통해 RNN을 바탕으로 한 팩터 모델로 확장하고자 함
 
+<br><br>
