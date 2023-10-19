@@ -14,13 +14,6 @@ Jonathon Shlens 분의 "A Tutorial on Principal Component Analysis"(2014) 논문
 [reference: Jonathon Shlens, "A Tutorial on Principal Component Analysis", 2014](https://arxiv.org/pdf/1404.1100.pdf)
 
 
-
-
-
-
-
-
-
 ---
 
 # 0. Abstract
