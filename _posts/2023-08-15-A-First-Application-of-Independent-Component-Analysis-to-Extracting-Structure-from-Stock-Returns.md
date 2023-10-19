@@ -31,12 +31,12 @@ Andrew D. Back, Andreas S. Weigend 분의 "A First Application of Independent Co
 
 # 2. ICA in General
 ## 2.1 Independent Component Analysis
-- ICA는 Input vector $S$로부터 신호 $x$를 가져와서 독립적인 벡터 세트 $y$를 추출하는 과정
+- ICA는 Input vector $$S$$로부터 신호 $$x$$를 가져와서 독립적인 벡터 세트 $$y$$를 추출하는 과정
 
 ![Alt text](image-10.png)
 
-- 다변수 시계열 데이터 {$x_i(t)$}가 mixing process $x_i(t)= \sum_{j=i}^na_{ij}s_j(t)$의 결과라 가정
-- $y(t)=\textbf{Wx}(t)=\textbf{WAs}(t)$로 바꿀 수 있는데, $A$가 미지의 행렬이기 때문에, W를 찾는데 어려움
+- 다변수 시계열 데이터 {$$x_i(t)$$}가 mixing process $$x_i(t)= \sum_{j=i}^na_{ij}s_j(t)$$의 결과라 가정
+- $$y(t)=\textbf{Wx}(t)=\textbf{WAs}(t)$$로 바꿀 수 있는데, $$A$$가 미지의 행렬이기 때문에, W를 찾는데 어려움
 - 행렬 W를 찾기 위해 다음과 같이 가정. 
     - Input S가 서로 독립
     - Input이 정규분포 따른다고 가정
@@ -53,7 +53,7 @@ Andrew D. Back, Andreas S. Weigend 분의 "A First Application of Independent Co
 - 본 논문에서는 JADE(Joint Approximate Diagonalization of Eigenmatrices) 알고리즘을 사용했는데, 다음과 같은 순서로 진행됨
     - 샘플 공분산 행렬을 계산해서, 관측된 아웃풋의 이차통계량을 제공(?), 이를 통해 행렬은 관측치를 whiten하는 효과
     - whiten된 데이터에서 4차누적값을 통해 eigen행렬은 대각화하는 rotation matrix를 찾음, 이를 통해 각 component는 독립
-  </br></br>  
+  <br></br>  
 - JADE와 같은 on-line 업데이트 알고리즘은 매 시점마다 matrix inversion을 해야하는 문제점을 극복함
 - 이 외에도 MLE를 기반으로 하는 contextual ICA, nonlinear mixing을 하는 ICA 등 다양한 방법이 시도됨
 
@@ -86,7 +86,7 @@ Andrew D. Back, Andreas S. Weigend 분의 "A First Application of Independent Co
 - 추정된 IC를 통한 i번째 주식의 return은 $$\hat{x_i}(t-j)=\sum_{k=1}^na_{ik}y_k(t-j)$$와 같이 나타낼 수 있음
 - weighted IC를 다음과 같은 식으로 나타낼 수 있음 $$\bar{y}_{ik}(t-j)=a_{ik}y_k(t-j)$$
 - 본 논문에선 weighted IC를 first stock return의 관점에서 rank했기 때문에, IC를 mixing matrix에 곱해서 weighted IC를 얻음
-</br></br>
+<br><br>
 
 ![Alt text](image-13.png)
 
