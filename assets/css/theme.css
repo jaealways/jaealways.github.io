@@ -652,13 +652,13 @@ footer {
     margin-top:10px;
 }
 article {
-	font-size:20px;
+	font-size:18px;
 	line-height:1.86;
     font-family:Lora;
 }
 .article-headline {
     font-family: Georgia,Times,"Noto Sans KR","Noto Sans KR","Times New Roman",serif;
-    font-size: 3.2rem;
+    font-size: 18px;
     font-weight: 400;
     line-height: 1.15;
     color: #222222;
