@@ -79,9 +79,10 @@ false? [prediction].
 - BERT, DistilBERT, RoBERTa, ALBERT, T5 등의 모델을 대상으로 예비 실험
 - ALBERT는 일관된 성능으로 Baseline으로 지정
 
-![Alt text](image.png)
+![Table 1](https://github.com/jaealways/must-read-paper-CV-daily/assets/71856506/3df9f59a-d5ed-4154-818e-6690b26ad0f1)
+
 - 각 점: 하나의 프롬프트가 하나의 랜덤시드에서 보인 성능
-- 전반벅으로 shot이 적으면 prompt-based가 우세
+- 전반적으로 shot이 적으면 prompt-based가 우세
 
 ## **Instruction-Tuned Model** 
 - Instruction-Tuned Model: 직접적인 instruction애 효과적으로 대응할 수 있도록 파인튜닝된 모델
@@ -113,8 +114,7 @@ false? [prediction].
 - **Irrelevant:** 관련 없는 문장으로 전제와 가설을 결합
 - **null:** 추가 텍스트 없이 전제와 가설을 단순 연결
 
-![Alt text](image-1.png)
-
+![Figure 3](https://github.com/jaealways/must-read-paper-CV-daily/assets/71856506/3d7199f6-a670-47d9-ac5f-e5aa6f78dcce)
 
 ## **4.2 Result**
 - Irrelevant: 관련 없는 템플릿으로 훈련된 모델은 실질적인 성능 차이 없음
@@ -122,11 +122,10 @@ false? [prediction].
 - null: 널 템플릿으로 훈련된 모델은 다른 카테고리보다 훨씬 성능이 나빴음
 - zero-shot: 제로샷에서는 명령어 조정된 T0를 제외한 모든 모델이 약간의 성능 향상
 
-![Alt text](image-3.png)
+![Figure 4](https://github.com/jaealways/must-read-paper-CV-daily/assets/71856506/583ba749-0dad-414b-8468-2d7ddd04e404)
+![Figure 5](https://github.com/jaealways/must-read-paper-CV-daily/assets/71856506/4f54aee5-6922-475d-b0f2-a23a44ca1860)
 
-![Alt text](image-4.png)
-
-![Alt text](image-5.png)
+![Figure 6](https://github.com/jaealways/must-read-paper-CV-daily/assets/71856506/1d712648-6a01-4c63-a608-61a6d37d2843)
 
 - **결론:** 
 - 모델들의 학습 속도와 정확성은 프롬프트의 성격에 따라 지시적이든, 오해의 소지가 있든, 무관하든 크게 영향 x
@@ -155,11 +154,11 @@ false? [prediction].
 - Yes-No 타겟으로 훈련된 모델은 Yes-No-like 타겟을 가진 모델보다 더 빨리 학습
 - Yes-No와 Reversed 간의 중앙값 정확도 차이가 유의하게 나타나 템플릿 범주에 비해 target-word 선택의 영향이 더 큼
 
-![Alt text](image-6.png)
+![Figure 8](https://github.com/jaealways/must-read-paper-CV-daily/assets/71856506/8ef6acba-fb2b-4612-88ee-314843e2a23b)
+
 - 32 shot에서도 성능차이가 꽤나 남
 
-![Alt text](image-7.png)
-
+![template-target](https://github.com/jaealways/must-read-paper-CV-daily/assets/71856506/1158025e-3a55-4bdd-86c0-a06b02d7c8cb)
 
 ## 5.3 Discussion
 - arbitrary로는 학습이 느리고, reversed target word는 positive result 가짐
@@ -167,7 +166,8 @@ false? [prediction].
 - 인간은 임의의 매핑을 빠르게 파악할 수 있지만, 모델은 유사한 정확도 수준에 도달하는 데 어려움
 
 
-![Alt text](image-8.png)
+![Figure 10](https://github.com/jaealways/must-read-paper-CV-daily/assets/71856506/a59d9235-1902-4937-81b7-0e4eebd044a8)
+
 
 # 6 General Discussion
 
@@ -202,7 +202,7 @@ false? [prediction].
 - 이러한 결과는 프롬프트가 의미론적으로 의미 있는 작업 명령어 역할을 하고 고성능 프롬프트를 작성하려면 도메인 전문 지식이 필요하다는 가설과 모순
 - 하지만 여전히 instruct prompt는 중요하다
 
-## ** Ethical Considerations**
+## **Ethical Considerations**
 - 이 연구는 특히 Language Models(LM)의 상업적 사용 증가를 고려할 때 연구 결과의 윤리적 의미를 강조
 - 전통적인 미세 조정 모델도 해석 가능성에 문제를 제기하지만, 프롬프트 기반 모델은 지시를 따르는 환상을 만들어 내는데, 이는 지시가 전혀 없는 것보다 더 오해를 불러일으킬 수 있다고 지적
 - 이러한 환상은 일반 사용자가 신속 기반 모델에 보다 쉽게 접근할 수 있도록 할 수 있으며, 이는 사용자가 자신의 지시를 이해하고 따르고 있다고 잘못 믿게 할 수 있음
