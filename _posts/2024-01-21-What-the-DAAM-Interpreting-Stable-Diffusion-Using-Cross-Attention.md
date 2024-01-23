@@ -37,7 +37,8 @@ tags: [PAPER, ACL'22, multi-modal]
   - 모델의 비정상적 프롬프트로 일반화 능력을 테스트하고자 함.
 - DAAM의 성능을 Mask R-CNN, QueryInst, Mask2Former 등 supervised method 및 STEGO, PiCIE + H와 같은 Unsupervised Methods와 비교
 - 사용된 평가 메트릭은 MIoU(mean intersection over union)
-  - $\frac{|A∩B|}{|A∪B|}$ : the mean visual intersection area over the union
+$$ \frac{|A∩B|}{|A∪B|} $$ 
+  - the mean visual intersection area over the union
   - MIoU 클수록, 원래 박스와 겹치는 영역 많다는 뜻
   - MIoU80: 80개의 COCO 클래스로만 학습한 결과
   - MIoU∞: 클래스 제한 없이 모두 사용
@@ -66,11 +67,11 @@ tags: [PAPER, ACL'22, multi-modal]
   - 반복적으로 노이즈 제거한 후 최종 벡터를 VAE로 이미지로 디코딩
 
 - **트레이닝 및 최적화**: 네트워크는 캡션-이미지 쌍으로 훈련하고, 점수 일치를 위해 하한의 증거에 대해 가중치가 부여된 형태를 최적화 <br><br>
-$ \min_{\theta} \sum_{t=1}^{T} \sum_{i} p(\ell_{i} | \theta, t) \left[ \| c(\ell_{i}, t_i) \|_0 - \nabla_{\ell_t} \log p(\ell_t | \theta, t_i) \right]_2^2
-$<br><br>
+$$ \min_{\theta} \sum_{t=1}^{T} \sum_{i} p(\ell_{i} | \theta, t) \left[ \| c(\ell_{i}, t_i) \|_0 - \nabla_{\ell_t} \log p(\ell_t | \theta, t_i) \right]_2^2
+$$<br><br>
 - latent 벡터 만들기 위해 가우시안 노이즈로 $\hat{\ell}_{tT}$ 초기화하고 노이즈 제거 프로세스를 통해 반복되는 잠재 벡터를 생성 <br><br>
-$\hat{\ell}_{t-1} = \frac{1}{\sqrt{1-\hat{\alpha}_t}} \left( \hat{\ell}_t + \hat{\alpha}_t \hat{\epsilon}(\hat{\ell}_t, t_i) \right) + \sqrt{\hat{\alpha}_t} \hat{z}_t.
-$
+$$\hat{\ell}_{t-1} = \frac{1}{\sqrt{1-\hat{\alpha}_t}} \left( \hat{\ell}_t + \hat{\alpha}_t \hat{\epsilon}(\hat{\ell}_t, t_i) \right) + \sqrt{\hat{\alpha}_t} \hat{z}_t.
+$$
 
 ## 2.2 Diffusion Attentive Attribution Maps
 - 텍스트-이미지 합성을 위한 대규모 잠재 확산 모델에서 각 단어에 의해 이미지의 어떤 부분이 가장 큰 영향을 받을까?
@@ -83,12 +84,12 @@ $
 - 공간적 차원에 대해 정규화된 attention 점수를 집계하고 이미지 전체에 걸쳐 보간
 - 인풋에서 k번째 단어를 다운샘플링 블록 등에 연결해서 [0,1]로 정규화
 
-$D^{(i)}_{k}[x, y] = \sum_{i,j,l} F^{(i)}_{j,k,l}[x, y] + \tilde{F}^{(i)}_{j,k,l}[x, y],$
+$$D^{(i)}_{k}[x, y] = \sum_{i,j,l} F^{(i)}_{j,k,l}[x, y] + \tilde{F}^{(i)}_{j,k,l}[x, y],$$
 
 - 여러 다운샘플, 업샘플의 hitmap을 보간해서 이미지 원래 크기로 통일한 다음, head, layer, timestep을 더함
 - 그 후에 임계값 넘는 픽셀만 표시하게 함
 
-$D^{+}_{k}[x, y] := \mathbb{1}\left( D^{R}_{k}[x, y] > \max_{i,j} D^{R}_{k}[i, j] \right),$
+$$D^{+}_{k}[x, y] := \mathbb{1}\left( D^{R}_{k}[x, y] > \max_{i,j} D^{R}_{k}[i, j] \right),$$
 
 ![Figure2](https://github.com/jaealways/TIL-daily/assets/71856506/71c08a86-1a17-4dee-8658-fdb95e9f8bf2)
 
@@ -132,8 +133,11 @@ $D^{+}_{k}[x, y] := \mathbb{1}\left( D^{R}_{k}[x, y] > \max_{i,j} D^{R}_{k}[i, j
 - DAAM을 사용하여 생성된 픽셀과 구문이 어떻게 관련되는지 파악하기
 
 ### Setup
-- head-dependent DAAM 맵 간의 쌍방향 상호작용의 특성화, COCO에서 1000개의 프롬프트를 분석하고 모든 단어에 대한 DAAM 맵을 생성
-- 조합 위의 평균 시각 교차 영역(mIoU), 종속 교차 영역(mIoD), 머리 위 교차 영역(mIoH)과 같은 집합 기반 유사성 통계를 사용하여 상위 10개의 가장 일반적인 구문 관계에 초점
+- head-dependent DAAM 맵, COCO에서 1000개의 프롬프트를 분석하고 모든 단어에 대한 DAAM 맵을 생성
+- mIoU, mIoD, mIoH과 같은 집합 기반 유사성 통계를 사용하여 상위 10개의 가장 일반적인 구문 관계에 초점
+
+![image](https://github.com/jaealways/TIL-daily/assets/71856506/6bf8ddce-f02f-4d17-abfb-ea09dfde400f)
+![image](https://github.com/jaealways/TIL-daily/assets/71856506/dcbf794d-2903-4f82-a707-6e03b7b73faf)
 
 ### Results
 - **기준 비교**: 관련이 없는 단어 쌍과 head-dependent 모든 쌍에서 
@@ -166,11 +170,13 @@ $D^{+}_{k}[x, y] := \mathbb{1}\left( D^{R}_{k}[x, y] > \max_{i,j} D^{R}_{k}[i, j
 ![Figure8](https://github.com/jaealways/TIL-daily/assets/71856506/eda793bf-9521-453a-902e-12d2fe04ff38)
 
 - **사례 연구**:
-  - **a {rusty, metallic, wooden} shovel sitting in a clean shed**: 형용사(예: "녹슨", "금속", "나무")를 바꾸면 그에 상응하는 창가의 외관에 변화
+  - **a {rusty, metallic, wooden} shovel sitting in a clean shed**: 형용사(예: "녹슨", "금속", "나무")를 바꾸면 창가의 외관에 변화
   - **a {bumpy, smooth, spiky} ball rolling down a hill**: "bumpy", "smooth", "spicky"와 같은 형용사들이 땅의 모양에 영향
   - **a {blue, green, red} car driving down the streets**: 색 형용사("파란색", "녹색", "빨간색")가 배경의 색에 영향
 - **관찰**: 실험을 통해 형용사가 수정하려는 대상뿐만 아니라 이미지 전체에 광범위하게 영향을 미침
 - 이미지 생성 과정에서 형용사 얽힘의 한 형태
+
+![Figure9](https://github.com/jaealways/TIL-daily/assets/71856506/8bfd44cb-7c1c-4735-828d-f73a9da4e293)
 
 
 # 7 Conclusions
