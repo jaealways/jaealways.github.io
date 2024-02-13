@@ -29,7 +29,7 @@ tags: [PAPER, ICLR'24, LLM]
     - 특히 clinic, legal 등의 high-stakes(위험 부담이 큰) application에선 더욱 어려움
 - hallucinations이 발생하는 이유는 데이터와 모델 분포 간의 forward KL divergence를 최소화하도록 설계된 Maximum Likelihood Language Modeling 때문일지도?
     - KL divergence: 모델 아웃풋에 대한 이상적인 값을 P, 실제 결과를 Q라 함. <br>
-    $ D_{KL}(P||Q) = \sum_{x\in \mathcal{X}} P(x) \log_b \left( \frac{P(x)}{Q(x)} \right) $
+    $$ D_{KL}(P||Q) = \sum_{x\in \mathcal{X}} P(x) \log_b \left( \frac{P(x)}{Q(x)} \right) $$
     - P를 기준으로 본 Q의 cross-entropy와 P의 정보엔트로피(엔트로피의 평균)의 차이 -> 즉 P와 Q가 크게 차이나면 KL divergence 값도 커짐
 - 즉, 인풋이 학습데이터에 있는 지식과 일치하지 않아도 non-zero 확률을 부여(어떻게든 학습데이터 속 내용과 매칭시켜야 KL divergence 줄기 때문)
 - 결과적으로 LLM이 실제 사실을 인식하지 못하고, 학습 예제의 피상적 패턴만 익히게 됨
@@ -52,18 +52,18 @@ tags: [PAPER, ICLR'24, LLM]
 
 - 요즘 언어모델들은 embedding layer + N개의 transformer layer + affine layer(next-word 분포를 예측함)로 이루어짐
 
-$p(x_t | x_{<t}) = \text{softmax}(\phi(h_t^{N})), \quad x_t \in \mathcal{X},$
+$$ p(x_t | x_{<t}) = \text{softmax}(\phi(h_t^{N})), \quad x_t \in \mathcal{X}, $$
 - 위 식처럼 모든 vocab set(X)에서 다음 단어의 확률을 예측함
 
-$q_j(x_t | x_{<t}) = \text{softmax}(\phi(h_t^{(j)})), \quad j = 1, \ldots, N.$
-- $\phi$를 단순히 마지막 레이어에만 적용하지 말고, 중간에도 적용해서 next token prediction에 사용하자
+$$ q_j(x_t | x_{<t}) = \text{softmax}(\phi(h_t^{(j)})), \quad j = 1, \ldots, N. $$
+- $$\phi$$를 단순히 마지막 레이어에만 적용하지 말고, 중간에도 적용해서 next token prediction에 사용하자
 
-$\hat{p}(x_t | x_{<t}) = \text{softmax}(F(q_N(x_t), q_M(x_t)))_{x_t}, \quad \text{where } M = \underset{j \in J}{\arg\max} \, d(q_N(\cdot), q_j(\cdot)).$
+$$ \hat{p}(x_t | x_{<t}) = \text{softmax}(F(q_N(x_t), q_M(x_t)))_{x_t}, \quad \text{where } M = \underset{j \in J}{\arg\max} \, d(q_N(\cdot), q_j(\cdot)). $$
 - middle layer에서 next token pred하는 것을 early exit라고 표현
 - premature layer: layer M, mature layer: final layer
 - jensen-shannon divergence: KL divergence가 p, q 바뀌어도 symmetric한 결과 낼 수 있도록 개량. 교환법칙 성립하기 때문에 distance 개념으로 사용 가능
 
-$D_{KL}(p||q) \neq D_{KL}(q||p)$
+$$ D_{KL}(p||q) \neq D_{KL}(q||p) $$
 
 - 즉 여러 candidate layer 중 mature layer 사이의 거리를 최대화할 수 있는 layer를 premature로 고름
 
@@ -88,9 +88,9 @@ $D_{KL}(p||q) \neq D_{KL}(q||p)$
 - contrastive decoding의 효과를 극대화하기 위해선, optimal premature layer를 최종 output layer와 가장 큰 차이를 보이는 것으로 골라야 함
 - 그래서 아래 식처럼 두 layer의 JSD를 측정해서 premature layer 선택
 
-$d(q_N(\cdot|x_{<t}), q_j(\cdot|x_{<t})) = JSD(q_N(\cdot|x_{<t})||q_j(\cdot|x_{<t})),$
+$$ d(q_N(\cdot|x_{<t}), q_j(\cdot|x_{<t})) = JSD(q_N(\cdot|x_{<t})||q_j(\cdot|x_{<t})), $$
 
-$M = \underset{j \in J}{\arg\max} \, JSD(q_N(\cdot | x_{<t}) || q_j(\cdot | x_{<t})),$
+$$ M = \underset{j \in J}{\arg\max} \, JSD(q_N(\cdot | x_{<t}) || q_j(\cdot | x_{<t})), $$
 
 - 이 때 전체 레이어의 갯수에 따라 2~4개 정도의 bucket을 선택하고 bucket 내의 layer를 돌면서 JSD argmax인 값을 bucket의 exit로 지정
 - DoLa-static: 위처럼 동적으로 layer 선택하는게 아니라, 하나의 Premature Layer 선택해서 고정하는 방법도 있음. 하지만 아래 같은 단점 있음
@@ -101,11 +101,15 @@ $M = \underset{j \in J}{\arg\max} \, JSD(q_N(\cdot | x_{<t}) || q_j(\cdot | x_{<
 
 ## 2.3 CONTRASTING THE PREDICTIONS
 
-$F(q_N(x_t), q_M(x_t)) = \begin{cases}
-\log \frac{q_N(x_t)}{q_M(x_t')} & \text{if } x_t \in \text{V}_{\text{head}} (x_{t|x_{<t}}), \\
--\infty, & \text{otherwise}.
-\end{cases}$ <br>
-$\hat{p}(x_t) = \text{softmax}(F(q_N(x_t), q_M(x_t)))$
+$$ F(q_N(x_t), q_M(x_t)) = 
+\left\{
+\begin{array}{ll}
+\log \frac{q_N(x_t)}{q_M(x_t')} & \text{if } x_t \in V_{\text{head}}(x_{t|x_{<t}}), \\
+-\infty & \text{otherwise}.
+\end{array}
+\right.
+ $$ <br>
+$$\hat{p}(x_t) = \text{softmax}(F(q_N(x_t), q_M(x_t)))$$
 
 - 결국 하고 싶은 건, Mature Layer의 영향력 높이고, Premature Layer 영향력 낮추는 것
 - 위의 2.2에서 등장한 premature와 mature의 차이를 위 식처럼 log 확률 사용해서 계산함
@@ -114,7 +118,7 @@ $\hat{p}(x_t) = \text{softmax}(F(q_N(x_t), q_M(x_t)))$
 - false negative: 너무 당연한 정답 토큰이 있어서 (0.809->0.813)로 확률이 변하면 F 값 0.027, next token으로 선택 안됨
 - false positive: 확률값이 매우 낮은 토큰이 (0.003 -> 0.017)의 높은 상승보이면, F 값이 3.13. next token으로 선택될 수 있음
 
-$V_{\text{head}} (x_{t|x_{<t}}) = \left\{ x_t \in \mathcal{X} : q_N(x_t) \geq \alpha \max_{w} q_N(w) \right\}.$
+$$V_{\text{head}} (x_{t|x_{<t}}) = \left\{ x_t \in \mathcal{X} : q_N(x_t) \geq \alpha \max_{w} q_N(w) \right\}.$$
 
 - 위 식처럼 Vhead 선택시 alpha*qN에서의 최대값해서, Mature layer에서 확률이 낮으면 생성 후보에서 아예 제외시켜버림
     - false negative는 어떻게 잡을까?
