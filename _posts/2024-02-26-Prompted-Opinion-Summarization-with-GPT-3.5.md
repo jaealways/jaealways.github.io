@@ -1,207 +1,118 @@
 ---
 layout: post
-title:  "[PAPER] Cap4Video: What Can Auxiliary Captions Do for Text-Video Retrieval?"
+title:  "[PAPER] Prompted Opinion Summarization with GPT-3.5"
 author: jaealways
-categories: [ paper, CV]
-tags: [PAPER, CVPR'23, multi-modal]
+categories: [ paper, NLP]
+tags: [PAPER, ACL'23, summarization, prompt]
 ---
 
-# [PAPER] Cap4Video: What Can Auxiliary Captions Do for Text-Video Retrieval?
-[reference: Wenhao Wu et al, "Cap4Video: What Can Auxiliary Captions Do for Text-Video Retrieval?", 2023](https://arxiv.org/pdf/2301.00184.pdf)
+# [PAPER] Prompted Opinion Summarization with GPT-3.5
 
+[reference: Adithya Bhaskar, "Prompted Opinion Summarization with GPT-3.5", 2023](https://aclanthology.org/2023.findings-acl.591.pdf)
 
-# TLDR
-- CVPR 2023 highlight paper
-- Cap4Video를 통해 캡션을 증강해서 text-video 모델 성능 높임
-- 생성된 캡션을 학습 데이터 증강, video-caption feature interaction, Output score fusion에 사용
 
 # Abstract
-
-- title, tags, subtitles과 같은 관련 텍스트 정보를 활용하여 text-video retrieval 성능을 높이고자 함
-- web-scale pre-trained model(CLIP, GPT-2)를 통해 제로 샷 비디오 캡션을 사용,  비디오에서 캡션을 생성하는 새로운 접근 방식인 Cap4Video를 제안
-- Cap4Video는 아래 세 가지 방법으로 text-video retrieval 성능 향상
-  - Input data: video-caption pair 사용해서 학습 데이터 보강
-  - Intermediate feature interaction: video representation 성능 높이기 위해 비디오와 캡션 간의 cross-modal feautre interaction 수행
-  - Output Score: Query-Caption matching을 통해 Query-Video matching을 보완
-- 텍스트 비디오 검색 벤치마크들에서 SOTA 달성
+- LLM의 강력한 요약 성능을 Opinion Summarization에도 적용하고 싶음
+- GPT-3.5를 기반으로 아래와 같은 시도
+    - 대규모의 유저 리뷰를 다루기 위해 recursive summarization 사용
+- Human Evaluation 결과, GPT-3.5가 높은 성능 보임
+    - 기존 evaluation metric이 요약 성능 충분히 발휘하지 못하기 때문에 새로운 metric 제안
 
 
-# 1. Introduction
+# 1 Introduction
+- GPT-4까지 LLM 요약이 발전했지만, opinion summarization은 좀 더 높은 추상화가 필요했기 때문에 다소 어려운 부분이었음
+- 본 논문에선 GPT-3.5 기반으로 제품, 호텔, 비즈니스 리뷰 요약을 진행
+    - 리뷰와 포스트의 길이가 max input length를 초과하기도 함
+    - 또 인풋 데이터의 스타일에 따라 단순히 인풋을 메아리처럼 반복하기도 함
+- 이를 해결하기 위해 아래와 같은 파이프라인 제안
+    - 추출 요약 모델을 통해 문장의 부분집합을 필터링함
+    - 반복된 요약으로 chunking
+    - 리뷰-점수 기반으로 층화
+- 문장별 주제 예측 및 클러스터링 단계를 포함하는 방법도 살펴보고자 함
+- 우리 요약 방법은 사람 평가에서 높은 점수 받음. 
+    - Rouge, BERTScore 등 기존 지표로는 찾아낼 수 없는 미묘한 포인트가 있음
+    - 생성된 요약문의 factuality, faithfulness, genericity를 측정하기 위해 entailment를 사용하는 metric 제시
+- 또한 인풋이 길어질수록 GPT-3.5의 요약 성능이 떨어짐
+    - 추출 요약 모델 QFSumm 사용해서, 이전 문장을 필터링해서 결과 향상
+- 본 논문의 주된 기여는 다음과 같음
+    - GPT-3.5를 사용해서 chunking을 사용한 계층 요약 및 추출 요약을 사용해서 사전 extract
+    - 인간 평가를 바탕으로 보다 객관적인 평가가 필요함을 입증함
+    - 요약을 평가하기에 더 적합한 지표 개발
 
-- global matching(video-sentence alignment)에서 fine-grained matching(frame-word alignment, videoword alignment,  multi-hierarchical alignment)으로 연구 발전하면서 성능 향상됨
-- 아래 두 가지 factor가 성능 향상에 영향
-    - CLIP을 통해 cross-modal learning에서의 문제를 줄일 수 있음
-    - sparsely sampled 프레임으로 비전 및 텍스트 인코더를 fine-tune할 수 있음
-- 위 두 가지 방법은 video와 text 간의 cross-modal aligenment를 목표로 함
+![Figure1](https://github.com/jaealways/must-read-paper-NLP-daily/assets/71856506/5ba24ac0-b3c5-417c-b7b1-d4393d57a154)
 
-- 현실에선 비디오 속 제목이나 사이트의 태그 등을 활용할 수 있고, 심지어 text-to-text retrieval의 성능을 향상시킬 수 있음. 
-- How can we generate associated text descriptions for videos? 이 때 두 가지 방법이 사용 가능함
-    - video website에서 video 제목 크롤링하기 -> 주석에 심하게 의존적, URL이 없다면?
-    - zero-shot video caption model 사용해서 만들기
-- ZeroCap: 최근 연구에서 제로샷 이미지 캡션에 CLIP 및 GPT-2를 사용해서 추가학습 없이 비디오 캡션 자동으로 생성함
+# 2 Motivation and Problem Setting
+- 리뷰 요약은 여러 리뷰 텍스트를 일관된 시놉시스로 요약하는 것을 말함
 
-![Figure1](https://github.com/jaealways/must-read-paper-CV-daily/assets/71856506/318a34cb-de64-4692-aac6-153bcb22d856)
+## 2.1 Desiderata
+- Opinion Summary는 세 가지 특성을 가져야 함
+- 요약은 faithful 해야 함
+    - 먼지 많은 카펫에 대한 불평이 더 많았다면 이를 선택해야 함
+    - 즉 faithful은 한정된 output을 잘 관리하는 것을 말함
+- 요약은 factual해야 함
+    - 소수라도 잘못된 정보가 있으면, 사실로 간주될 수 있음
+- 요약은 relevant해야 함
+    - 호텔 방의 청결에 대한 요약에서 음식에 대한 리뷰는 제외되어야 함
 
-- 보조 캡션을 생성하면, How can we leverage these captions to enhance the text-video retrieval task? 라는 질문 떠오름
-- 본 논문에선 Cap4Video를 제시. 크게 세 가지 방법으로 caption 활용
-  - Input data: video-caption pair로 인풋 넣음
-  - Intermediate Feature Interaction: video와 caption 사이 cross-modal interaction을 통해 중복 피쳐 제거하고, video representation 성능 올림
-  - Output score: query-video matching 뿐만 아니라 query-caption matching을 사용하여 text-video retrieval 향상시킴.
-- 본 논문의 contribution은 다음과 같음
-    - LLM에서 자동으로 생성된 캡션을 사용하는 등 새로운 방식으로 문제 접근
-    - Cap4Video를 제안해서 기존 query-video matching 개선
-    - 대규모 실험을 통해 Cap4Video가 SOTA 달성했음을 확인
+## 2.2 Framework
+- 요약이 모든 리뷰를 대표해야 하지만, 그 수가 너무 많음
+- 때문에 여러 단계별로 시스템 S를 구축하고, 이전 시스템의 아웃풋을 인풋으로 취함 -> 조금씩 단계적으로 요약 진행
 
+# 3 GPT-3.5 Summarization Pipelines
+- 요약 파이프라인을 extractor와 summarizer로 나눌 수 있음
+    - Extractor: 리뷰 셋에서 관련된 파트 선택
+- GPT-3.5 Topic Clustering (T): 각 문장의 단일 단어 주제를 생성해달라고 함
+- QFSumm-long (Q): QFSumm 사용해서 입력 텍스트에서 관련성이 가장 높은 문장을 최대 35개까지 추출
+- Review Stratification (R): 리뷰 점수 별 클러스터링 및 각 클러스토 요약
+- GPT3.5-chunking (C): 일부 파이프라인에선 추출기 대신 chunking 사용. 나중에 결과 concat함
 
-# 2. Methodology
-
-## 2.1. Background: Text-Video Matching
-
-- 유사도 함수(sentence Qi, video Vj)를 사용하여 쿼리 문장과의 유사도로 비디오의 순위를 매김
-
-### Global Matching
-- 각 modality를 독립적으로 인코딩해서 global features 구함
-- F 샘플링된 프레임에서 F frame embeddings을 출력하도록 visual encoder 훈련
-- query 인코더는 W 워드 임베딩 및 W 워드들을 포함하는 query sentence에 대한 [CLS] 임베딩을 생성
-- 유사도 계산을 위한 전역 쿼리 임베딩과 비교하여, 프레임 임베딩에 대한 average pooling을 사용하여 global video embedding을 획득
-
-### Fine-grained Matching
-- frame-word alignment과 같은 토큰 수준 정렬에 초점
-- Max-Mean 파이프라인을 활용하여 patch and word tokens 간의 토큰별 최대 유사성을 찾은 다음 평균화
-
-## 2.2. Preprocessing: Caption Generation
-
-- 보조 캡션을 얻기 위한 두 가지 접근 방식
-
-### Manual Crawling of Video Titles
-- 원래 링크를 캡션으로 사용하여 사이트에서 제목 추출, 링크가 만료된 비디오는 패스
-### Automatic Video Captioning
-- LLM(CLIP + GPT-2) 활용하여 추가 훈련 없이 가능한 zero-shot video captioning 과정 거침
+![Table1](https://github.com/jaealways/must-read-paper-NLP-daily/assets/71856506/2e3e486a-67e0-4df6-a568-a1a3ebaf1c7f)
 
 
-![Figure2](https://github.com/jaealways/must-read-paper-CV-daily/assets/71856506/d0749675-8f19-4a55-b372-2e288d74771b)
+# 4 Evaluation
+## 4.1 Datasets
 
-## 2.3. Data Augmentation with Auxiliary Captions
-- 비디오에서 생성된 캡션에서 추가적인 positive sample 생성함
-- automatic video captioner로 각 비디오에 대해 최대 20개의 캡션을 생성
-- 훈련에 negative effect 주지 않기 위해서, caption과 ground-truth query의 semantic similarity 계산
+![Figure3](https://github.com/jaealways/must-read-paper-NLP-daily/assets/71856506/18223ad2-a007-4355-8b54-787abd2a192e)
 
+- SPACE: 호텔의 {general, rooms, building, cleanliness, location, service, food} aspect 별 리뷰 요약 데이터셋
+    - 일부 데이터셋이 Figure3처럼 너무 길어서 파이프라인 사용
+- FewSum: Amazon, Yelp의 제품 리뷰. aspect 별 분류 없고 리뷰 길이도 더 짧음
 
-## 2.4. Video-Caption Cross-Modal Interaction
+![Table2](https://github.com/jaealways/must-read-paper-NLP-daily/assets/71856506/ce987e46-c478-4b22-b7ea-fe138f6ddd99)
 
-- video과 caption의 complementarity을 활용하여 redundant features 줄이고 discriminative video representations 학습하도록 함
-  
-- frame embeddings $$ e_v = {v_1, v_2, · · · , v_F } $$
-- caption embeddings $$ e_c = {c_1, c_2, · · · , c_C } $$
-- F: number of frames, C: number of captions
-  
-![image](https://github.com/jaealways/must-read-paper-CV-daily/assets/71856506/7e357e20-2443-4ca0-a13e-806adc076854)
+## 4.2 Automatic Eval: ROUGE and BERTScore
+- 데이터셋 별로 Rouge, BERTScore 계산
+- 어떤 파이프라인을 사용해도 점수에 큰 차이가 없는데, 이에 대해 의문을 가짐
+- 가령 Figure2처럼 “The rooms were clean.” 대신 "The reviewers found the rooms to be clean”와 같이 출력하면 n-gram 기반 점수는 떨어짐
 
+![Figure2](https://github.com/jaealways/must-read-paper-NLP-daily/assets/71856506/cd8dcd1d-f55b-480c-ace2-76feb060ff85)
 
-## 2.5. Complementary Query-Caption Matching
+- 요약 성능을 테스트하는 다른 지표가 필요하다고 결론 내림
 
-- 캡션은 data aug 효과 뿐만 아니라, video content를 directly represent하는 효과도 있음
-- [CLS] 토큰을 통해 caption을 represent함
-  
-- global caption embedding과 global query embedding 간의 코사인 유사도를 계산하여 query video matching 보완
+![Table4](https://github.com/jaealways/must-read-paper-NLP-daily/assets/71856506/d9b7cbe8-4ce5-4c34-93c3-29fcff855c09)
 
-- B triples: $$ \{e_{vi}, e_{ti}, e_{ci}\}_{i=1}^B $$
-$$ e_{vi}, e_{ti}, e_{ci} $$ 
-- 각각 video, query, caption embedding 뜻함
+## 4.3 Human Evaluation
+- Human Evaluation을 할 때, 성능에 대한 신뢰도를 높이기 위헤 데이터를 무작위로 파이프라인 별로 추출
+- 평가지표는 Factuality, Faithfulness, Relevance 세 가지임
+- Representativeness도 지표로 추가함
+    - "While most reviewers thought" 등에서 정말 most가 맞는지 등 평가
+- Krippendorff’s alpha, Fleiss-Kappa: 평가자들의 의견이 일치할수록 높아짐
+- TCG는 TQG와 QG에서 상당히 개선됨을 보임
+- 전반적으로 최대 점수 달성했다고 주장
 
-- query-video global matching: $$ e_{vi}, e_{ti} $$는 averaged video feature and global [CLS] text feature 나타냄
-- query-video fine-grained matching: $$ e_{vi}, e_{ti} $$ 는 sequence of frame embeddings, sequence of word embeddings 나타냄
-- query-caption matching: $$ e_{ci}, e_{ti} $$ 는 sequence of caption embeddings, global [CLS] text feature 나타냄
-  
-- Query-Caption 간에 cross-entropy loss를 사용해서 contrasive learning 하고자 함
-- sqc(·, ·)는 query-caption matching similarity function
-$$
-\begin{align*}
-L_{Q2C} &= \frac{1}{B} \sum_i^B \log \frac{\exp(s_{qc}(e_{ti}, e_{ci}) / T)}{\sum_j^B \exp(s_{qc}(e_{ti}, e_{cj}) / T)}, \\
-L_{C2Q} &= \frac{1}{B} \sum_i^B \log \frac{\exp(s_{qc}(e_{ti}, e_{ci}) / T)}{\sum_j^B \exp(s_{qc}(e_{tj}, e_{ci}) / T)}, \\
-L_{QC} &= \frac{1}{2} (L_{Q2C} + L_{C2Q}),
-\end{align*}
-$$
+# 5 New Tools for Evaluation and Analysis
+- 자동평가를 통해 개선될 수 있는 것 중 하나가 faithfulness임
+    - faithfulness: 시스템이 얼마나 일관성과 진실성을 유지하는지임
+- entailment를 support의 대용치로 사용하면 어떨까?
+- 가령, 문장 간 entailment 계산해서 요약 점수로 사용
+- 또한 genericity도 evaluate하고 싶음
 
-- Query-Video 간에도 contrasive learning 하고자 함
+## 5.1 Terminology
+- 두 문장 s1,s2의 점수가 1.0이면 완벽한 entailment
 
-$$
-\begin{align*}
-L_{Q2V} &= \frac{1}{B} \sum_{i}^B \log \frac{\exp(s_{qv}(e_{ti}, e_{vi}) / T)}{\sum_{j}^B \exp(s_{qv}(e_{ti}, e_{vj}) / T)}, \\
-L_{V2Q} &= \frac{1}{B} \sum_{i}^B \log \frac{\exp(s_{qv}(e_{ti}, e_{vi}) / T)}{\sum_{j}^B \exp(s_{qv}(e_{tj}, e_{vi}) / T)}, \\
-L_{QV} &= \frac{1}{2} (L_{Q2V} + L_{V2Q}),
-\end{align*}
-$$
+## 5.2 Evaluation of Entailment
+- entailment가 과연 human evaluation의 mentioned viewpoint의 support를 식별하는데 효과적인지 판단하고자 함
+- entailment 주장이 받아들여짐
 
-- total loss를 아래와 같이 구함
-$$
-L = L_{QV} + L_{QC}
-$$
-
-
-# 3. Experiments: Text-Video Retrieval
-
-## 3.1. Setups
-
-### Datasets
-- MSR-VTT: 각 20개의 캡션이 포함된 10K 개의 비디오 클립
-- DiDeMo: 10K 비디오, 40K description 쌍. 
-- VATEX: 각각 여러 개의 주석이 달린 약 35,000개의 비디오
-- MSVD: 80K 캡션이 있는 1970개의 비디오, 비디오당 평균 ~40개의 캡션이 있음
-  
-### Evaluation Metrics
-- R@K (Recall at K): top-k retrieve된 비디오(또는 텍스트)에서 정답 있는지 확인
-- MdR(Median Rank): retrieval ranking list에서 ground-truth의 median rank 계산
-- MnR(평균 순위): retrieval ranking list에서 ground-truth의 median rank 계산
-- MdR, MnR은 낮을수록 성능 높은 것임
-
-### Implemenation detail
-- CLIP의 Visual Encoder를 Video encoder로, Textual Encoder를 caption, query encoder로 사용
-- 영상당 30개의 캡션을 생성하도록 함
-- zero-shot 캡션 생성을 위해 CLIP 및 GPT-2 모델 사용
-
-
-## 3.2. Comparison with State-of-the-Arts
-
-![Table2](https://github.com/jaealways/must-read-paper-CV-daily/assets/71856506/e7582559-bb00-48a6-b7de-f1fbda14ff2d)
-
-- 네 가지 벤치마크 모두에서 대부분의 지표가 SOTA 기록
-
-## 3.3. Ablation Study
-
-![Table5](https://github.com/jaealways/must-read-paper-CV-daily/assets/71856506/569ad9a6-5202-48f3-bf38-96f4b68bc061)
-
-### Auxiliary Caption as Data Augmentation
-- 현실에선 video title이 additional auxiliary caption으로 사용될 수 있음
-- 때문에 video title과 GPT-2에 의해 생성된 캡션을 비교함
-- GPT-2에 의해 생성된 캡션을 train에 사용하면 matching 성능 약간 향상
-- Top-1만 사용해도 효과적임을 입증
-
-![Table6](https://github.com/jaealways/must-read-paper-CV-daily/assets/71856506/14a0582d-94fc-443f-8956-07821911f7d1)
-
-### Benefit on Both Online and Offline Videos Scenarios
-- 오프라인 동영상의 경우 CLIP+GPT-2 사용해서 캡션 생성
-- 온라인 동영상의 경우 원래 웹사이트 제목을 캡션으로 직접 사용
-- 온라인 및 오프라인 모두 baseline에 비해 개선됨
-
-### Video-Caption Feature Interaction
-- Sum, MLP, Cross Transformer, Co-attention Transformer approach 시도
-- Co-attention Transformer가 가장 높은 성능 향상 기록
-
-### Query-Caption matching
-- Query-Video matching을 보완하여 QC, QV 조합을 통해 추가 개선
-
-- Cap4Video는 input data augmentation, intermediate feature interaction, output score fusion 세 가지 방법을 통해 생성된 캡션 활용
-
-
-![Figure4](https://github.com/jaealways/must-read-paper-CV-daily/assets/71856506/cb2c9df0-4098-41e7-9288-609f05cb0dd3)
-
-## 3.4. Visualization
-- 보조 캡션을 사용하여 이전 모델보다 높은 정확성 보임
-
-
-# 5. Conclusion
-
-- Cap4Video를 통해 캡션을 증강해서 text-video 모델 성능 높임
-- 생성된 캡션을 학습 데이터 증강, video-caption feature interaction, Output score fusion에 사용
-
+## 5.3 Faithfulness: Support Set Sizes
+- 
